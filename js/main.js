@@ -744,17 +744,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // 12. Parallax Background on CTA Section
-  gsap.to('.cta-bg-img', {
-    yPercent: -15,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.cta',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true
-    }
-  });
+  // 12. NRI Support — card hover zoom + expand icon (desktop only)
+  if (window.innerWidth > 1024) {
+    document.querySelectorAll('.nri-card').forEach((card) => {
+      const img = card.querySelector('img');
+      const expandIcon = card.querySelector('.nri-card-expand');
+      gsap.set(expandIcon, { scale: 0.85 });
+
+      card.addEventListener('mouseenter', () => {
+        gsap.to(img, { scale: 1.08, duration: 0.7, ease: 'power3.out' });
+        gsap.to(expandIcon, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(img, { scale: 1, duration: 0.6, ease: 'power3.out' });
+        gsap.to(expandIcon, { opacity: 0, scale: 0.85, duration: 0.3, ease: 'power2.out' });
+      });
+    });
+  }
 
   // 13. Scroll Reveal Text Color Fill Animation
   const revealTitles = document.querySelectorAll('.section-title');
