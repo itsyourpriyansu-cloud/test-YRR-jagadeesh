@@ -11,14 +11,14 @@
   --color-green-dark: #0d5e31;    /* Forest green */
   --color-blue: #008ece;          /* Sky blue */
   --color-yellow: #f9b012;        /* Sun yellow */
-  
+
   /* Neutral Color Tokens */
   --bg-site: #ffffff;             /* Site background is white only */
   --text-main: #1f2937;           /* Off-black body text */
   --text-muted: #6b7280;          /* Gray body text */
   --border-light: #e5e7eb;        /* Light gray dividers */
   --border-accent: rgba(10, 54, 92, 0.1);
-  
+
   /* Glassmorphism System */
   --glass-bg: #ffffff;
   --glass-border: rgba(229, 231, 235, 0.8);
@@ -28,12 +28,12 @@
   /* Font Families */
   --font-primary: 'Satoshi', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
+
   /* Spacing System */
   --container-max-width: 1280px;
   --section-padding: 8rem 2rem;
   --section-padding-mobile: 5rem 1.25rem;
-  
+
   /* Transitions */
   --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: all 0.25s ease;
@@ -93,7 +93,7 @@ a {
 /* ─── Common UI Components ─── */
 
 .container {
-  max-width: var(--container-max-width);
+  /* max-width: var(--container-max-width); */
   margin: 0 auto;
   width: 100%;
   position: relative;
@@ -589,69 +589,78 @@ header.scrolled .logo-img.logo-sticky {
 
 /* About Section */
 .about {
-  padding: var(--section-padding);
-  background-color: var(--bg-site);
+  position: relative;
+  overflow: hidden;
+  padding: 100px;
+  background-color: #0d1b2a;
+}
+
+.about-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 5rem;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
 }
 
-.about-visual {
-  position: relative;
-  border-radius: 28px;
+.about-photo-card {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  justify-self: end;
+  align-self: start;
+  width: 100%;
+  max-width: 500px;
+  /* aspect-ratio: 469 / 450; */
+  border-radius: 20px;
   overflow: hidden;
-  height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-.about-visual img {
+.about-photo-card img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-}
-
-.about-glass-overlay {
-  position: absolute;
-  bottom: 2rem;
-  right: -2rem;
-  width: 80%;
-  max-width: 320px;
+  object-fit: cover;
 }
 
 .about-content {
+  grid-column: 1;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+  max-width: 520px;
 }
 
 .about-tag {
   font-family: var(--font-primary);
   font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--color-green-dark);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.about-tag::before {
-  content: '';
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-color: var(--color-green-light);
-  border-radius: 50%;
+  letter-spacing: 0.15em;
 }
 
 .about-title {
-  font-size: clamp(2rem, 3.5vw, 3.5rem);
-  font-weight: 800;
-  color: var(--color-primary);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
 }
 
 .about-title span {
@@ -659,46 +668,33 @@ header.scrolled .logo-img.logo-sticky {
 }
 
 .about-text {
-  font-size: 1.1rem;
-  color: var(--text-muted);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
 }
 
 .about-points {
+  grid-column: 1;
+  max-width: 520px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 1rem;
+  gap: 2rem 2rem;
+  margin-top: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.about-point-card {
-  display: flex;
-  gap: 1rem;
-}
-
-.about-point-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background-color: rgba(0, 142, 206, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-blue);
-  flex-shrink: 0;
-}
-
-.about-point-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-.about-point-content h4 {
-  font-size: 1.15rem;
-  margin-bottom: 0.35rem;
-}
-
-.about-point-content p {
+.about-point-card h4 {
   font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.about-point-card p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
 }
 
 /* ─── Smart Investors: Dark Navy Horizontal Scroll Section ─── */
@@ -846,10 +842,10 @@ header.scrolled .logo-img.logo-sticky {
 .si-cards-track {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3.5rem;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 5rem 3rem 5rem 2.5rem;
+  padding: 9rem 3rem 4rem 6.5rem;
   flex: 1;
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
@@ -1125,7 +1121,7 @@ header.scrolled .logo-img.logo-sticky {
 
 /* ─── Projects Gallery (Showcase Slider) ─── */
 .gallery {
-  padding: var(--section-padding);
+  /* padding: var(--section-padding); */
   position: relative;
 }
 
@@ -1194,7 +1190,7 @@ header.scrolled .logo-img.logo-sticky {
 .sg-content {
   position: relative;
   width: 100%;
-  padding: 5rem 4rem 4.5rem;
+  padding: 5rem 9rem 21.5rem;
   display: grid;
   grid-template-columns: 0.6fr 1.4fr;
   gap: 4rem;
@@ -1205,7 +1201,7 @@ header.scrolled .logo-img.logo-sticky {
 .sg-meta {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .sg-tag {
@@ -1220,7 +1216,7 @@ header.scrolled .logo-img.logo-sticky {
 .sg-counter {
   font-family: var(--font-primary);
   font-size: clamp(3rem, 6vw, 4.5rem);
-  font-weight: 900;
+  font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -1229,14 +1225,14 @@ header.scrolled .logo-img.logo-sticky {
 .sg-info {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  max-width: 680px;
+  gap: 3rem;
+  /* max-width: 680px; */
 }
 
 .sg-title {
   font-family: var(--font-primary);
   font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 800;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -1258,7 +1254,7 @@ header.scrolled .logo-img.logo-sticky {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4rem 2rem;
+  padding: 0 9rem 5rem;
   z-index: 4;
 }
 
@@ -2130,17 +2126,17 @@ footer.footer-section .container {
   footer.footer-section {
     padding: 4rem 1.5rem 2.5rem 1.5rem;
   }
-  
+
   .footer-top-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.75rem;
   }
-  
+
   .footer-nav {
     gap: 1.25rem;
   }
-  
+
   .footer-bottom-row {
     flex-direction: column-reverse;
     align-items: flex-start;
@@ -2153,20 +2149,20 @@ footer.footer-section .container {
   :root {
     --section-padding: 6rem 1.5rem;
   }
-  
+
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 220px;
   }
-  
+
   .bento-col-2 {
     grid-column: span 2;
   }
-  
+
   .bento-card:nth-child(3) {
     grid-column: span 2;
   }
-  
+
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2177,47 +2173,59 @@ footer.footer-section .container {
     margin: 0 1rem;
     padding: 0.5rem 1.25rem;
   }
-  
+
   .nav-links {
     display: none;
   }
-  
+
   .nav-actions {
     display: none;
   }
-  
+
   .mobile-toggle {
     display: block;
   }
-  
+
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .hero-visual {
     height: 450px;
   }
-  
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
-  .about-visual {
-    height: 400px;
+
+  .about-content {
+    max-width: none;
   }
-  
-  .about-glass-overlay {
-    right: 0rem;
-    width: 70%;
+
+  .about-bg-image {
+    display: none;
   }
-  
+
+  .about-photo-card {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: stretch;
+    max-width: none;
+    margin: 1rem 0;
+  }
+
+  .about-points {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .tm-left-panel {
     width: 100%;
     position: relative;
@@ -2235,7 +2243,7 @@ footer.footer-section .container {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
-  
+
   .cta-banner {
     padding: 3rem 2rem;
   }
@@ -2245,49 +2253,49 @@ footer.footer-section .container {
   :root {
     --section-padding: 4.5rem 1.25rem;
   }
-  
+
   .hero-title {
     font-size: clamp(2.5rem, 8vw, 3.75rem);
   }
-  
+
   .hero-stats {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .bento-grid {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }
-  
+
   .bento-col-2 {
     grid-column: span 1;
   }
-  
+
   .bento-row-2 {
     grid-row: span 1;
   }
-  
+
   .bento-card {
     height: auto;
     min-height: 200px;
   }
-  
+
   .bento-card:nth-child(3) {
     grid-column: span 1;
   }
-  
+
   .map-container {
     position: relative;
     width: 100%;
     height: 200px;
     border-radius: 0 0 24px 24px;
   }
-  
+
   .gallery-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .gallery-item,
   .gallery-item.height-tall,
   .gallery-item.height-short {
@@ -2327,8 +2335,8 @@ header {
   backdrop-filter: blur(12px); */
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2467,7 +2475,7 @@ header.scrolled .btn-secondary:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 0rem 12% 2rem; /* Lower third placement */
+  padding: 0 0rem 12% 7rem; /* Lower third placement */
 }
 
 .hero-text-block {
@@ -2557,7 +2565,7 @@ header.scrolled .btn-secondary:hover {
 .hero-video-metadata {
   position: absolute;
   bottom: 4%;
-  left: 2rem;
+  left: 7rem;
   right: 2rem;
   display: flex;
   justify-content: space-between;
@@ -2723,16 +2731,16 @@ header.scrolled .btn-secondary:hover {
     transform: none;
     max-width: 100%;
   }
-  
+
   .hero-video-container {
     padding: 0 2rem 15% 2rem;
   }
-  
+
   .hero-video-metadata {
     left: 2rem;
     right: 2rem;
   }
-  
+
   .hero-stats-strip {
     padding: 2.5rem 2rem;
   }
@@ -2742,29 +2750,29 @@ header.scrolled .btn-secondary:hover {
   .hero-video-container {
     padding-bottom: 20%;
   }
-  
+
   .hero-video-title {
     font-size: 2.25rem;
   }
-  
+
   .hero-video-metadata {
     display: none; /* Hide metadata lines on mobile for cleaner layout */
   }
-  
+
   .stats-new-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .stats-new-desc {
     margin-bottom: 2.5rem;
   }
-  
+
   .stats-cards-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .stats-card {
     padding: 1.75rem;
   }
@@ -2802,7 +2810,6 @@ main > .hero {
 
 /* Section backgrounds transparent so birds show through as ambient texture.
    Glass-cards, hero-stats-strip, footer, and CTA keep their own solid backgrounds. */
-.about,
 .features,
 .gallery,
 .testimonials,
@@ -2814,6 +2821,11 @@ main > .hero {
 
 /* Smart Investors section keeps its dark navy — never made transparent */
 .smart-investors {
+  background-color: #0d1b2a !important;
+}
+
+/* About section keeps its own solid dark navy — never made transparent */
+.about {
   background-color: #0d1b2a !important;
 }
 
@@ -2925,7 +2937,7 @@ h2.section-title.navy-reveal .title-fill {
    ========================================================================== */
 
 .services-section {
-  padding: var(--section-padding);
+  padding: 100px;
   background-color: var(--bg-site);
   position: relative;
   overflow: hidden;
@@ -3001,7 +3013,7 @@ h2.section-title.navy-reveal .title-fill {
   background-color: #eaeae4; /* Premium warm sand/linen color from the reference */
   padding: 3rem 2.5rem;
   justify-content: flex-start;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.4s ease;
   border: 1px solid rgba(10, 54, 92, 0.04);
@@ -3018,7 +3030,7 @@ h2.section-title.navy-reveal .title-fill {
   width: 48px;
   height: 48px;
   border-radius: 10px;
-  background-color: #ff5a00; /* Vibrant signature orange from reference */
+  background-color: #008009; /* Vibrant signature orange from reference */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3089,7 +3101,7 @@ h2.section-title.navy-reveal .title-fill {
 
 /* Image Card specific styling */
 .service-card.image-card {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
@@ -3357,4 +3369,3 @@ h2.section-title.navy-reveal .title-fill {
     height: 85vh;
   }
 }
-

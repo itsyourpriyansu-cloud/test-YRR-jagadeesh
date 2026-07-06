@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // 7. About Section Reveal Scroll Animations
-  gsap.from('.about-visual', {
+  gsap.from('.about-photo-card', {
     x: -50,
     opacity: 0,
     duration: 1.2,
@@ -356,6 +356,22 @@ document.addEventListener('DOMContentLoaded', () => {
       start: 'top 80%'
     }
   });
+
+  // 7b. About Photo Card — hover zoom + lift (desktop only)
+  const aboutPhotoCard = document.querySelector('.about-photo-card');
+  if (aboutPhotoCard && window.innerWidth > 1024) {
+    const aboutPhotoImg = aboutPhotoCard.querySelector('img');
+
+    aboutPhotoCard.addEventListener('mouseenter', () => {
+      gsap.to(aboutPhotoImg, { scale: 1.1, duration: 0.9, ease: 'power3.out' });
+      gsap.to(aboutPhotoCard, { y: -8, borderColor: 'rgba(255, 255, 255, 0.35)', duration: 0.6, ease: 'power3.out' });
+    });
+
+    aboutPhotoCard.addEventListener('mouseleave', () => {
+      gsap.to(aboutPhotoImg, { scale: 1, duration: 0.7, ease: 'power3.out' });
+      gsap.to(aboutPhotoCard, { y: 0, borderColor: 'rgba(255, 255, 255, 0.15)', duration: 0.6, ease: 'power3.out' });
+    });
+  }
 
   // 8. Bento Grid Card Tilting mouse hover (3D Perspective)
   const bentoCards = document.querySelectorAll('.bento-card');
