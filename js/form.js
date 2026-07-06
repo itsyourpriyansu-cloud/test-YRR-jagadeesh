@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkPhone(val) {
-    if (val === '') return { isValid: false, message: 'Please enter your phone number.' };
+    if (val === '') return { isValid: true };
     const phoneRegex = /^\+?[0-9\s\-()]{10,20}$/;
     if (!phoneRegex.test(val)) return { isValid: false, message: 'Please enter a valid phone number (10+ digits).' };
     return { isValid: true };

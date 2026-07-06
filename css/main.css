@@ -2177,7 +2177,7 @@ header.scrolled .logo-img.logo-sticky {
 
 .cf-footer-logo {
   height: 40px;
-  width: auto;
+  width: 100px;
   object-fit: contain;
 }
 
