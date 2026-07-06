@@ -106,15 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 6. Hero Entrance Animations
-  const heroTL = gsap.timeline();
-  heroTL.fromTo('header', { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out' })
-        .fromTo('.hero-tag', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.5')
-        .fromTo('.hero-title span', { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: 'power4.out' }, '-=0.4')
-        .fromTo('.hero-subtitle', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6')
-        .fromTo('.hero-actions', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6')
-        .fromTo('.hero-visual', { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' }, '-=0.8')
-        .fromTo('.stat-item', { y: 20, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: 'power3.out' }, '-=0.8');
+  // 6. Header Entrance Animation
+  gsap.set('header', { y: -50, opacity: 0 });
+  gsap.to('header', { y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+
 
   // Parallax zoom effect on Hero Image
   gsap.to('.hero-main-img', {
@@ -333,29 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // 7. About Section Reveal Scroll Animations
-  gsap.from('.about-photo-card', {
-    x: -50,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.about',
-      start: 'top 75%'
-    }
-  });
-
-  gsap.from('.about-content > *', {
-    y: 30,
-    opacity: 0,
-    stagger: 0.15,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.about-content',
-      start: 'top 80%'
-    }
-  });
+  // (About Section reveal handled by centralized animation manager)
 
   // 7b. About Photo Card — hover zoom + lift (desktop only)
   const aboutPhotoCard = document.querySelector('.about-photo-card');
@@ -412,31 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Bento Scroll Entrance animation
-  gsap.from('.bento-card', {
-    y: 40,
-    opacity: 0,
-    stagger: 0.12,
-    duration: 0.8,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.bento',
-      start: 'top 75%'
-    }
-  });
-
-  // 9. Features Section Entrance scroll
-  gsap.from('.feature-item', {
-    y: 50,
-    opacity: 0,
-    stagger: 0.2,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.features',
-      start: 'top 75%'
-    }
-  });
+  // (Bento and Features reveal handled by centralized animation manager)
 
   // 10. Showcase Slider Gallery Controller (GSAP)
   (function () {
@@ -935,40 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateArrows(); // set initial state
   })();
 
-  // GSAP Reveal for Services Section
-  (function initServicesReveal() {
-    const servicesGrid = document.querySelector('.services-grid');
-    if (!servicesGrid) return;
-
-    // Reveal the service cards
-    gsap.from('.services-grid .service-card', {
-      opacity: 0,
-      y: 40,
-      scale: 0.96,
-      duration: 1.2,
-      ease: 'power4.out',
-      stagger: 0.12,
-      scrollTrigger: {
-        trigger: servicesGrid,
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-
-    // Also reveal the header text elements
-    gsap.from('.services-header-left > *', {
-      opacity: 0,
-      y: 30,
-      duration: 1.0,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.services-header-wrap',
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-  })();
+  // (Services reveal handled by centralized animation manager)
 
   // ── OUR WORKS — Scroll-Driven GSAP Showcase ─────────────────────────────
   (function initWorksSection() {
@@ -1088,5 +1004,122 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   })();
+
+  // Centralized Section Reveal Animation Manager
+  function initSectionRevealAnimations() {
+    const childSelectors = [
+      // 1. Heading
+      'h1, h2, h3, .section-title, .about-title, .services-title, .si-heading, .lo-title, .tm-heading, .nri-title, .cf-heading, .works-hero-title, .hero-video-title',
+      // 2. Subtitle
+      '.hero-video-subtitle, .services-subtitle, .lo-subtitle, .tm-desc, .si-desc, .works-tag, .lo-eyebrow, .services-eyebrow, .about-tag, .si-tag, .cf-tag, .hero-video-metadata',
+      // 3. Paragraph
+      'p, .about-text, .nri-text p',
+      // 4. Cards
+      '.stats-card, .service-card, .si-card, .tm-card, .nri-card, .feature-item, .about-point-card, .lo-item, .partner-logo-item, .form-group',
+      // 5. Buttons
+      '.btn-primary, .btn-secondary, .cf-submit-btn, .nri-link, .lo-learn-more, .card-cta, .si-nav-arrows button, .tm-nav-arrows button, .sg-controls button, .cf-footer-cta, .btn-video-text, .hero-video-btn',
+      // 6. Images
+      '.about-photo-card, .lo-visual, .nri-card img, .cf-footer-logo, .hero-bg-image, .about-bg-image, .lo-visual-img, .partner-logo-img, .tm-card-portrait',
+      // 7. Statistics
+      '.hero-stats, .stats-cards-grid, .stat-number-val, .sg-counter'
+    ];
+
+    const sections = [
+      '#hero',
+      '.hero-stats-strip',
+      '#about',
+      '#services',
+      '#bento',
+      '#gallery',
+      '#location',
+      '#testimonials',
+      '.partners',
+      '#nri',
+      '#contact'
+    ];
+
+    function animateSection(sectionSelector, childSelectors) {
+      const section = document.querySelector(sectionSelector);
+      if (!section) return;
+
+      const targets = [];
+      childSelectors.forEach(selector => {
+        const elements = Array.from(section.querySelectorAll(selector));
+        elements.forEach(el => {
+          if (!targets.includes(el)) {
+            targets.push(el);
+          }
+        });
+      });
+
+      // Filter out elements whose parent/ancestor is already in targets to prevent conflicting transitions.
+      const filteredTargets = targets.filter(el => {
+        let parent = el.parentElement;
+        while (parent && parent !== section) {
+          if (targets.includes(parent)) {
+            return false;
+          }
+          parent = parent.parentElement;
+        }
+        return true;
+      });
+
+      if (filteredTargets.length === 0) return;
+
+      // Add performance/GPU optimization class
+      filteredTargets.forEach(el => {
+        el.classList.add('gsap-reveal-target');
+      });
+
+      // Temporarily disable CSS transitions on properties controlled by GSAP
+      section.classList.add('gsap-reveal-active');
+
+      // 1. Set initial states using gsap.set() once
+      gsap.set(filteredTargets, {
+        opacity: 0,
+        y: 60,
+        scale: 0.985,
+        filter: 'blur(8px)',
+        force3D: true,
+        lazy: false,
+        immediateRender: false
+      });
+
+      // 2. Animate with gsap.to() using ScrollTrigger
+      gsap.to(filteredTargets, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 1,
+        ease: 'power4.out',
+        stagger: 0.12,
+        overwrite: 'auto',
+        force3D: true,
+        lazy: false,
+        clearProps: 'filter',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+          once: true,
+          onComplete: () => {
+            section.classList.remove('gsap-reveal-active');
+            filteredTargets.forEach(el => el.classList.remove('gsap-reveal-target'));
+          }
+        }
+      });
+    }
+
+    sections.forEach(selector => {
+      animateSection(selector, childSelectors);
+    });
+  }
+
+  initSectionRevealAnimations();
+
+  window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
+  });
 
 });

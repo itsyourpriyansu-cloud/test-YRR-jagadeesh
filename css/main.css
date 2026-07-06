@@ -2172,7 +2172,7 @@ header.scrolled .logo-img.logo-sticky {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 320px;
+  max-width: 400px;
 }
 
 .cf-footer-logo {
@@ -3617,3 +3617,16 @@ h2.section-title.navy-reveal .title-fill {
     height: 85vh;
   }
 }
+
+/* ── Premium Section Reveal Animations ── */
+.gsap-reveal-active * {
+  transition: none !important;
+}
+
+.gsap-reveal-target {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
