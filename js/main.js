@@ -604,6 +604,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
+  // 10b. Location Overview Accordion (single-open, with image crossfade)
+  (function () {
+    const accordion = document.getElementById('lo-accordion');
+    if (!accordion) return;
+
+    const items = accordion.querySelectorAll('.lo-item');
+    const images = document.querySelectorAll('.lo-visual-img');
+
+    function openItem(item, animate) {
+      const content = item.querySelector('.lo-item-content');
+      const icon = item.querySelector('.lo-item-icon span:last-child');
+      const header = item.querySelector('.lo-item-header');
+      item.classList.add('is-open');
+      header.setAttribute('aria-expanded', 'true');
+
+      if (animate) {
+        gsap.to(content, { height: 'auto', duration: 0.6, ease: 'power3.inOut' });
+        gsap.to(icon, { scaleY: 0, duration: 0.4, ease: 'power2.out' });
+      } else {
+        gsap.set(content, { height: 'auto' });
+        gsap.set(icon, { scaleY: 0 });
+      }
+    }
+
+    function closeItem(item) {
+      const content = item.querySelector('.lo-item-content');
+      const icon = item.querySelector('.lo-item-icon span:last-child');
+      const header = item.querySelector('.lo-item-header');
+      item.classList.remove('is-open');
+      header.setAttribute('aria-expanded', 'false');
+
+      gsap.to(content, { height: 0, duration: 0.5, ease: 'power3.inOut' });
+      gsap.to(icon, { scaleY: 1, duration: 0.4, ease: 'power2.out' });
+    }
+
+    items.forEach((item) => {
+      const content = item.querySelector('.lo-item-content');
+
+      if (item.classList.contains('is-open')) {
+        openItem(item, false);
+      } else {
+        gsap.set(content, { height: 0 });
+      }
+
+      item.querySelector('.lo-item-header').addEventListener('click', () => {
+        const alreadyOpen = item.classList.contains('is-open');
+
+        items.forEach((other) => {
+          if (other !== item && other.classList.contains('is-open')) {
+            closeItem(other);
+          }
+        });
+
+        if (alreadyOpen) {
+          closeItem(item);
+        } else {
+          openItem(item, true);
+
+          const targetIndex = item.dataset.loIndex;
+          images.forEach((img) => {
+            img.classList.toggle('is-active', img.dataset.loImage === targetIndex);
+          });
+        }
+      });
+    });
+  })();
+
   // 11. Testimonials — drag-to-scroll + arrow navigation
   (function () {
     const track   = document.getElementById('tm-cards-track');

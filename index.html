@@ -187,8 +187,8 @@
           </svg>
         </span>
 
-        <!-- Sticker: Growth arrow -->
-        <!-- <span class="hscroll-sticker" data-hsticker>
+
+       <span class="hscroll-sticker" data-hsticker>
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polyline points="8,48 22,28 34,36 54,14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             <polyline points="42,14 54,14 54,26" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -354,17 +354,22 @@
           </span>
           <h2 class="si-heading">Strategic services<br>for investors.</h2>
           <p class="si-desc">We work with smart investors and family offices making decisions that matter most — strategy, structure, and sustainable growth.</p>
-          <a href="#gallery" class="si-cta" role="button" aria-label="View all services">
-            <span class="si-cta-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+
+          <!-- Navigation Arrows -->
+          <div class="si-nav-arrows" role="group" aria-label="Navigate services">
+            <button class="si-nav-btn" id="si-prev-btn" aria-label="Previous service" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <button class="si-nav-btn" id="si-next-btn" aria-label="Next service">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </span>
-            VIEW ALL SERVICES
-          </a>
-
-
+            </button>
+          </div><!-- /si-nav-arrows -->
         </div>
 
         <!-- RIGHT PANEL: cards track + navigation arrows -->
@@ -428,22 +433,6 @@
           </div>
 
         </div><!-- /si-cards-track -->
-
-          <!-- Navigation Arrows -->
-          <div class="si-nav-arrows" role="group" aria-label="Navigate services">
-            <button class="si-nav-btn" id="si-prev-btn" aria-label="Previous service" disabled>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
-            </button>
-            <button class="si-nav-btn" id="si-next-btn" aria-label="Next service">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div><!-- /si-nav-arrows -->
 
         </div><!-- /si-right-panel -->
       </div>
@@ -542,74 +531,106 @@
       </div>
     </section>
 
-    <!-- OUR WORKS — GSAP Scroll-Driven Showcase -->
-    <section class="works-section" id="works" aria-label="Our Works">
-
-      <!-- Section Header (hero-like intro, pinned briefly) -->
-      <!-- <div class="works-hero" id="works-hero">
-        <span class="works-tag">
-          <span class="works-tag-dot"></span>
-          FEATURED PROJECTS
-        </span>
-        <h1 class="works-hero-title">Our Landmark<br>Works</h1>
-      </div> -->
-
-      <!-- Work Item 1 -->
-      <div class="work-item" id="work-item-1">
-        <div class="work-item-img">
-          <img src="Assets/Img/work_01.jpg" alt="Greenview Premium Plots" loading="lazy">
+    <!-- LOCATION OVERVIEW — Accordion with real project imagery -->
+    <section class="location-overview" id="location">
+      <div class="container">
+        <div class="lo-header">
+          <span class="lo-eyebrow">Where You Invest</span>
+          <h2 class="lo-title">Location Overview</h2>
+          <p class="lo-subtitle">Every Yoshitha Infra address is chosen for what surrounds it — the landmarks, the roads, and the getaways that make weekends worth it.</p>
         </div>
-        <div class="work-item-name">
-          <h1>GREENVIEW PLOTS</h1>
-        </div>
-        <div class="work-item-meta">
-          <span class="work-item-tag">Residential Plots</span>
-          <span class="work-item-num">01</span>
+
+        <div class="lo-grid">
+          <div class="lo-visual">
+            <img src="Assets/Img/work_04.jpg" alt="Landmark commercial towers near Yoshitha Infra developments" class="lo-visual-img is-active" data-lo-image="0" loading="lazy">
+            <img src="Assets/Img/work_03.jpg" alt="Landscaped highway connectivity near Yoshitha Infra developments" class="lo-visual-img" data-lo-image="1" loading="lazy">
+            <img src="Assets/Img/work_02.jpg" alt="Weekend getaway villa near Yoshitha Infra developments" class="lo-visual-img" data-lo-image="2" loading="lazy">
+          </div>
+
+          <div class="lo-accordion" id="lo-accordion">
+            <!-- Item 1 -->
+            <div class="lo-item is-open" data-lo-index="0">
+              <button class="lo-item-header" aria-expanded="true">
+                <span class="lo-item-title">Major Landmarks</span>
+                <span class="lo-item-icon"><span></span><span></span></span>
+              </button>
+              <div class="lo-item-content">
+                <div class="lo-item-inner">
+                  <ul class="lo-points">
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Minutes from premier international schools and multi-specialty hospitals
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Adjacent to the IT &amp; Financial District business corridor
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Close to the upcoming Metro Rail extension and civic hubs
+                    </li>
+                  </ul>
+                  <a href="#gallery" class="lo-learn-more">Learn More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="lo-item" data-lo-index="1">
+              <button class="lo-item-header" aria-expanded="false">
+                <span class="lo-item-title">Connectivity</span>
+                <span class="lo-item-icon"><span></span><span></span></span>
+              </button>
+              <div class="lo-item-content">
+                <div class="lo-item-inner">
+                  <ul class="lo-points">
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Direct access to the Outer Ring Road (ORR)
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      25 minutes to Rajiv Gandhi International Airport
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Seamless link to the NH44 national highway
+                    </li>
+                  </ul>
+                  <a href="#gallery" class="lo-learn-more">Learn More</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="lo-item" data-lo-index="2">
+              <button class="lo-item-header" aria-expanded="false">
+                <span class="lo-item-title">Weekend Getaways</span>
+                <span class="lo-item-icon"><span></span><span></span></span>
+              </button>
+              <div class="lo-item-content">
+                <div class="lo-item-inner">
+                  <ul class="lo-points">
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      45 minutes to Ananthagiri Hills and scenic reservoirs
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Curated resort and farmhouse communities nearby
+                    </li>
+                    <li class="lo-point">
+                      <span class="lo-point-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                      Private clubhouse access reserved for residents
+                    </li>
+                  </ul>
+                  <a href="#gallery" class="lo-learn-more">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Work Item 2 -->
-      <div class="work-item" id="work-item-2">
-        <div class="work-item-img">
-          <img src="Assets/Img/work_02.jpg" alt="Elara Luxury Villas" loading="lazy">
-        </div>
-        <div class="work-item-name">
-          <h1>ELARA VILLAS</h1>
-        </div>
-        <div class="work-item-meta">
-          <span class="work-item-tag">Luxury Villas</span>
-          <span class="work-item-num">02</span>
-        </div>
-      </div>
-
-      <!-- Work Item 3 -->
-      <div class="work-item" id="work-item-3">
-        <div class="work-item-img">
-          <img src="Assets/Img/work_03.jpg" alt="Nova Smart Township" loading="lazy">
-        </div>
-        <div class="work-item-name">
-          <h1>NOVA TOWNSHIP</h1>
-        </div>
-        <div class="work-item-meta">
-          <span class="work-item-tag">Smart Community</span>
-          <span class="work-item-num">03</span>
-        </div>
-      </div>
-
-      <!-- Work Item 4 -->
-      <div class="work-item" id="work-item-4">
-        <div class="work-item-img">
-          <img src="Assets/Img/work_04.jpg" alt="Zenith Commercial Hub" loading="lazy">
-        </div>
-        <div class="work-item-name">
-          <h1>ZENITH HEIGHTS</h1>
-        </div>
-        <div class="work-item-meta">
-          <span class="work-item-tag">Mixed-Use Development</span>
-          <span class="work-item-num">04</span>
-        </div>
-      </div>
-
     </section>
 
     <!-- TESTIMONIALS — same dark-navy split-panel layout as Smart Investors -->
@@ -811,67 +832,77 @@
     <!-- CONTACT FORM & SIMULATED MAILBOX -->
     <section class="contact" id="contact">
       <div class="container">
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="about-tag">Get in Touch</div>
-            <h2 style="font-size: clamp(2rem, 3vw, 3rem);">Start Your Real Investment</h2>
-            <p>Our dedicated partner desk is open for direct negotiations and layout walk-through planning. Complete the form to establish a verified communication link.</p>
+        <div class="contact-card">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <!-- <span class="contact-tag">Get in Touch</span> -->
+              <div class="contact-main">
+                <h2 class="contact-title">Start Your Real Investment</h2>
+              <p class="contact-subtitle">Our dedicated partner desk is open for direct negotiations and layout walk-through planning. </p>
 
-            <div class="contact-methods">
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-                <div class="contact-text">
-                  <h4>Direct Call Line</h4>
-                  <p>+91 98450 12345 / +91 80 4123 4567</p>
-                </div>
               </div>
-              <div class="contact-item">
-                <div class="contact-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div class="contact-methods">
+                <div class="contact-item">
+                  <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </div>
+                  <div class="contact-text">
+                    <h4>Direct Call Line</h4>
+                    <p>+91 98450 12345 / +91 80 4123 4567</p>
+                  </div>
                 </div>
-                <div class="contact-text">
-                  <h4>Corporate E-Mail</h4>
-                  <p>partners@yoshitharealrise.com</p>
+                <div class="contact-item">
+                  <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                  <div class="contact-text">
+                    <h4>Corporate E-Mail</h4>
+                    <p>partners@yoshitharealrise.com</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Glassmorphic Contact Form Panel -->
-          <div class="contact-form-panel glass-card">
-            <form id="contact-form" novalidate>
-              <div class="form-group">
-                <input type="text" id="form-name" class="form-input" placeholder=" " required>
-                <label for="form-name" class="form-label">Full Name</label>
-                <span class="form-error-msg">Please enter your name.</span>
-              </div>
+            <!-- Contact Form -->
+            <div class="contact-form-wrap">
+              <form id="contact-form" novalidate>
+                <div class="form-group">
+                  <input type="text" id="form-name" class="form-input" placeholder=" " required>
+                  <label for="form-name" class="form-label">Full Name</label>
+                  <span class="form-error-msg">Please enter your name.</span>
+                </div>
 
-              <div class="form-group">
-                <input type="email" id="form-email" class="form-input" placeholder=" " required>
-                <label for="form-email" class="form-label">E-Mail Address</label>
-                <span class="form-error-msg">Please enter a valid email address.</span>
-              </div>
+                <div class="form-group">
+                  <input type="email" id="form-email" class="form-input" placeholder=" " required>
+                  <label for="form-email" class="form-label">E-Mail Address</label>
+                  <span class="form-error-msg">Please enter a valid email address.</span>
+                </div>
 
-              <div class="form-group">
-                <input type="tel" id="form-phone" class="form-input" placeholder=" " required>
-                <label for="form-phone" class="form-label">Telephone Number</label>
-                <span class="form-error-msg">Please enter your phone number.</span>
-              </div>
+                <div class="form-group">
+                  <input type="tel" id="form-phone" class="form-input" placeholder=" " required>
+                  <label for="form-phone" class="form-label">Telephone Number</label>
+                  <span class="form-error-msg">Please enter your phone number.</span>
+                </div>
 
-              <div class="form-group">
-                <textarea id="form-message" class="form-input" rows="4" placeholder=" " required style="resize: none;"></textarea>
-                <label for="form-message" class="form-label">Query Parameters (Plot Size, Location preference)</label>
-                <span class="form-error-msg">Please write a brief message.</span>
-              </div>
+                <div class="form-group">
+                  <textarea id="form-message" class="form-input" rows="4" placeholder=" " required style="resize: none;"></textarea>
+                  <label for="form-message" class="form-label">Query Parameters (Plot Size, Location preference)</label>
+                  <span class="form-error-msg">Please write a brief message.</span>
+                </div>
 
-              <div style="margin-top: 1rem;">
-                <button type="submit" class="btn-primary" style="width: 100%;">
-                  <span>Submit Inquiry Securely</span>
+                <button type="submit" class="btn-primary contact-submit-btn">
+                  <span>
+                    Submit Inquiry Securely
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
                 </button>
-              </div>
-            </form>
+
+                <p class="contact-form-note">By submitting, your details are kept confidential and used only to arrange your consultation.</p>
+              </form>
+            </div>
           </div>
         </div>
       </div>
