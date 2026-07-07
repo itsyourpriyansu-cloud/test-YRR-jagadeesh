@@ -300,16 +300,26 @@ header.scrolled .logo-img.logo-sticky {
 /* Mobile Menu Toggle */
 .mobile-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.5rem;
   z-index: 110;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.mobile-toggle:hover {
+  background-color: rgba(10, 54, 92, 0.06);
 }
 
 .mobile-toggle span {
   display: block;
-  width: 24px;
+  width: 22px;
   height: 2px;
   background-color: var(--color-primary);
   margin-bottom: 5px;
@@ -323,44 +333,97 @@ header.scrolled .logo-img.logo-sticky {
 /* Mobile Menu Panel */
 .mobile-menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
   background-color: #ffffff;
   z-index: 105;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+  visibility: hidden;
   transform: translateY(-100%);
-  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1), visibility 0s linear 0.6s;
   padding: 2rem;
 }
 
 .mobile-menu-overlay.active {
+  visibility: visible;
   transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1), visibility 0s linear 0s;
+}
+
+/* Close (×) button — top-right, premium tap target */
+.mobile-menu-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(10, 54, 92, 0.05);
+  border: 1px solid rgba(10, 54, 92, 0.1);
+  border-radius: 50%;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.mobile-menu-close:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.mobile-menu-eyebrow {
+  position: absolute;
+  top: 1.75rem;
+  left: 2rem;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .mobile-menu-links {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 0.5rem;
 }
 
 .mobile-menu-link {
   font-family: var(--font-primary);
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-primary);
+  padding: 0.6rem 1rem;
+  line-height: 1.2;
   transition: var(--transition-fast);
 }
 
-.mobile-menu-link:hover {
+.mobile-menu-link:hover,
+.mobile-menu-link:focus-visible {
   color: var(--color-green-light);
   transform: translateY(-3px);
+}
+
+.mobile-menu-link:focus-visible {
+  outline: 2px solid var(--color-green-light);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.mobile-menu-close:focus-visible {
+  outline: 2px solid var(--color-green-light);
+  outline-offset: 3px;
 }
 
 /* ─── Hero Section ─── */
@@ -1056,70 +1119,72 @@ iframe.sg-img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.5) 60%, rgba(13, 27, 42, 0.2) 100%);
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.96) 0%, rgba(13, 27, 42, 0.62) 55%, rgba(13, 27, 42, 0.18) 100%);
   z-index: 2;
 }
 
 .sg-content {
   position: relative;
   width: 100%;
-  padding: 5rem 9rem 21.5rem;
-  display: grid;
-  grid-template-columns: 0.6fr 1.4fr;
-  gap: 4rem;
-  align-items: flex-end;
+  padding: 2.5rem 3rem 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   z-index: 3;
 }
 
 .sg-meta {
   display: flex;
-  flex-direction: column;
-  gap: 3rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .sg-tag {
   font-family: var(--font-primary);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.13em;
   color: var(--color-green-light);
   text-transform: uppercase;
 }
 
 .sg-counter {
   font-family: var(--font-primary);
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.45);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.03em;
+  padding-left: 0.75rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sg-info {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  /* max-width: 680px; */
+  gap: 0.65rem;
+  max-width: 640px;
 }
 
 .sg-title {
   font-family: var(--font-primary);
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
   font-weight: 600;
   color: #ffffff;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
 }
 
 .sg-desc {
   font-family: var(--font-secondary);
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.65);
-  max-width: 700px;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 560px;
+  line-height: 1.6;
 }
 
-/* Slider Controls */
+/* Slider Controls — integrated bottom shelf */
 .sg-controls {
   position: absolute;
   bottom: 0;
@@ -1128,17 +1193,18 @@ iframe.sg-img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 9rem 5rem;
+  gap: 1.5rem;
+  padding: 1.25rem 3rem 2.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 4;
 }
 
 .sg-progress-container {
   flex: 1;
-  height: 2px;
+  height: 3px;
   background-color: rgba(255, 255, 255, 0.15);
-  margin-right: 4rem;
   position: relative;
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -1151,7 +1217,7 @@ iframe.sg-img {
 
 .sg-navigation {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
   flex-shrink: 0;
 }
 
@@ -1159,8 +1225,8 @@ iframe.sg-img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.05);
@@ -1190,20 +1256,10 @@ iframe.sg-img {
     height: 520px;
   }
   .sg-content {
-    padding: 3rem 2.5rem 3.5rem;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .sg-meta {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    padding: 2rem 2.5rem 6.5rem;
   }
   .sg-controls {
-    padding: 0 2.5rem 1.5rem;
-  }
-  .sg-progress-container {
-    margin-right: 2rem;
+    padding: 1rem 2.5rem 1.75rem;
   }
 }
 
@@ -1213,14 +1269,23 @@ iframe.sg-img {
     border-radius: 24px;
   }
   .sg-content {
-    padding: 2.5rem 1.75rem 3rem;
-    gap: 1.25rem;
+    padding: 1.75rem 1.75rem 6rem;
+    gap: 0.75rem;
+  }
+  .sg-title {
+    font-size: 1.35rem;
+  }
+  .sg-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
   }
   .sg-controls {
-    padding: 0 1.75rem 1.25rem;
+    padding: 0.85rem 1.75rem 1.5rem;
+    gap: 1rem;
   }
-  .sg-progress-container {
-    margin-right: 1.5rem;
+  .sg-nav-btn {
+    width: 38px;
+    height: 38px;
   }
 }
 
@@ -2431,17 +2496,75 @@ iframe.sg-img {
     gap: 2rem;
   }
 
-  .tm-left-panel {
-    width: 100%;
-    position: relative;
-    height: auto;
-    padding: 3rem 2rem 2rem;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  .tm-section {
+    min-height: 0;
   }
 
   .tm-layout {
     flex-direction: column;
+    min-height: 0;
+  }
+
+  .tm-left-panel {
+    width: 100%;
+    min-width: 0;
+    position: relative;
+    height: auto;
+    gap: 1rem;
+    padding: 2.5rem 1.5rem 1.75rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .tm-heading {
+    font-size: 1.65rem;
+  }
+
+  .tm-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    max-width: none;
+  }
+
+  .tm-nav-arrows {
+    margin-top: 0.25rem;
+  }
+
+  .tm-nav-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* Cards become a compact, touch-friendly horizontal scroller */
+  .tm-cards-track {
+    padding: 1.5rem 1.5rem 2rem;
+    gap: 1rem;
+  }
+
+  .tm-card {
+    width: 260px;
+  }
+
+  .tm-card-portrait {
+    height: 170px;
+  }
+
+  .tm-card-body {
+    padding: 1.15rem;
+    gap: 0.65rem;
+  }
+
+  .tm-card-quote {
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .tm-author-name {
+    font-size: 0.88rem;
+  }
+
+  .tm-author-role {
+    font-size: 0.72rem;
   }
 }
 
@@ -2969,11 +3092,54 @@ header.scrolled .btn-secondary:hover {
 
 @media (max-width: 768px) {
   .hero-video-container {
-    padding-bottom: 20%;
+    padding-bottom: 9%;
   }
 
+  /* 1. Center the person/background image on mobile + darken for legibility */
+  .hero-bg-image {
+    /* Source image is 3840x2160 with the face sitting at ~76% across;
+       object-fit:cover matches viewport height exactly on portrait phones,
+       so only the x-offset matters — 84% brings the face to screen-center. */
+    object-position: 84% center;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(10, 54, 92, 0.35) 0%, rgba(10, 54, 92, 0.55) 40%, rgba(10, 54, 92, 0.92) 100%);
+    pointer-events: none;
+  }
+
+  /* 2. Tighter, harmonious text sizing */
   .hero-video-title {
-    font-size: 2.25rem;
+    font-size: 1.7rem;
+    line-height: 1.22;
+  }
+
+  .hero-video-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* 3. Smaller CTAs, side-by-side instead of stacked */
+  .hero-video-actions {
+    gap: 1.6rem;
+    margin-top: 1rem;
+    flex-wrap: nowrap;
+  }
+
+  .hero-video-btn {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .btn-video-text {
+    font-size: 0.82rem;
+    gap: 0.35rem;
+    white-space: nowrap;
   }
 
   .hero-video-metadata {

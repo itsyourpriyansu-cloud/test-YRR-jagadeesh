@@ -78,33 +78,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Mobile Menu Navigation panel toggle
   const mobileToggle = document.getElementById('mobile-toggle');
   const mobileMenu = document.getElementById('mobile-menu-overlay');
+  const mobileClose = document.getElementById('mobile-menu-close');
   const mobileLinks = document.querySelectorAll('.mobile-menu-link');
 
   if (mobileToggle && mobileMenu) {
     const toggleMenu = () => {
       const isActive = mobileMenu.classList.toggle('active');
       document.body.classList.toggle('menu-open', isActive);
-      
+
+      // ARIA state
+      mobileToggle.setAttribute('aria-expanded', String(isActive));
+      mobileToggle.setAttribute('aria-label', isActive ? 'Close Navigation Menu' : 'Open Navigation Menu');
+      mobileMenu.setAttribute('aria-hidden', String(!isActive));
+
+      // Pause/resume Lenis so it can't fight the locked overlay scroll
+      if (window.__lenis) {
+        isActive ? window.__lenis.stop() : window.__lenis.start();
+      }
+
       // Animate line state
       const spans = mobileToggle.querySelectorAll('span');
       if (isActive) {
         gsap.to(spans[0], { y: 7, rotate: 45, duration: 0.3 });
         gsap.to(spans[1], { opacity: 0, duration: 0.2 });
         gsap.to(spans[2], { y: -7, rotate: -45, duration: 0.3 });
-        
+
         // Stagger list elements in Mobile Menu
-        gsap.fromTo(mobileLinks, 
+        gsap.fromTo(mobileLinks,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, stagger: 0.1, delay: 0.3, duration: 0.5, ease: 'power3.out' }
         );
+
+        // Move focus into the dialog for keyboard/screen-reader users
+        mobileClose && mobileClose.focus();
       } else {
         gsap.to(spans[0], { y: 0, rotate: 0, duration: 0.3 });
         gsap.to(spans[1], { opacity: 1, duration: 0.2 });
         gsap.to(spans[2], { y: 0, rotate: 0, duration: 0.3 });
+
+        // Return focus to the trigger that opened the menu
+        mobileToggle.focus();
       }
     };
 
     mobileToggle.addEventListener('click', toggleMenu);
+    mobileClose && mobileClose.addEventListener('click', toggleMenu);
+
+    // Escape key closes the menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
+
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
         if (mobileMenu.classList.contains('active')) {
