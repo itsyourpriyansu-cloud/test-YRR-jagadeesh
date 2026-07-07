@@ -1139,6 +1139,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initSectionRevealAnimations();
 
+  // 13. Masterplan Lightbox Controller
+  (function () {
+    const openBtn = document.getElementById('open-masterplan-btn');
+    const lightbox = document.getElementById('mp-lightbox');
+    const closeBtn = document.getElementById('mp-lightbox-close');
+    const overlay = document.getElementById('mp-lightbox-overlay');
+
+    if (!openBtn || !lightbox) return;
+
+    function openLightbox() {
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (window.__lenis) window.__lenis.stop();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (window.__lenis) window.__lenis.start();
+    }
+
+    openBtn.addEventListener('click', openLightbox);
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (overlay) overlay.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
+  })();
+
   window.addEventListener('load', () => {
     ScrollTrigger.refresh();
   });

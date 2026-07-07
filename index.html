@@ -225,10 +225,25 @@
 
           <div class="about-points">
             <div class="about-point-card">
+              <div class="about-point-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 11l2 2 4-4"/>
+                </svg>
+              </div>
               <h4>Legal Verification</h4>
               <p>Comprehensive titles and litigation-free legal paperwork guaranteed.</p>
             </div>
             <div class="about-point-card">
+              <div class="about-point-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="4" width="16" height="16" rx="1" />
+                  <path d="M9 4v16" />
+                  <path d="M15 4v16" />
+                  <path d="M4 10h16" />
+                  <path d="M4 14h16" />
+                </svg>
+              </div>
               <h4>Premium Lay-Outs</h4>
               <p>Wide asphalt avenues, clean underground drainage, and solar streetlights.</p>
             </div>
@@ -354,6 +369,10 @@
           </span>
           <h2 class="si-heading">Strategic services<br>for investors.</h2>
           <p class="si-desc">We work with smart investors and family offices making decisions that matter most — strategy, structure, and sustainable growth.</p>
+
+          <button class="btn-secondary btn-masterplan" id="open-masterplan-btn" aria-label="See the masterplan">
+            <span>See the masterplan &nbsp; ↗</span>
+          </button>
 
           <!-- Navigation Arrows -->
           <div class="si-nav-arrows" role="group" aria-label="Navigate services">
@@ -1053,5 +1072,19 @@
       }
     })();
   </script>
+
+  <!-- Masterplan Lightbox Overlay -->
+  <div class="mp-lightbox" id="mp-lightbox" aria-hidden="true" role="dialog">
+    <div class="mp-lightbox-overlay" id="mp-lightbox-overlay"></div>
+    <div class="mp-lightbox-content">
+      <button class="mp-lightbox-close" id="mp-lightbox-close" aria-label="Close Masterplan">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img src="Assets/Img/master-plan-img.png" alt="Yoshitha Real Rise Master Plan" class="mp-lightbox-img" loading="lazy">
+    </div>
+  </div>
 </body>
 </html>
