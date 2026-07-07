@@ -944,139 +944,6 @@ header.scrolled .logo-img.logo-sticky {
 }
 
 
-/* ─── Features Section with Skeletons (Aceternity UI inspired) ─── */
-.features {
-  padding: var(--section-padding);
-  background-color: var(--bg-site);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-}
-
-.feature-item {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  transition: var(--transition-smooth);
-}
-
-/* The Skeleton Container (Aceternity styling) */
-.skeleton-container {
-  height: 200px;
-  border-radius: 18px;
-  background-color: #fafbfc;
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  transition: var(--transition-smooth);
-}
-
-/* Shimmer overlay effect */
-.skeleton-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: skeleton-shimmer 2.2s infinite;
-}
-
-@keyframes skeleton-shimmer {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
-
-/* Skeleton Inner architectural vector styling */
-.skeleton-graphic {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  opacity: 0.65;
-  transition: var(--transition-smooth);
-}
-
-.skeleton-row {
-  height: 6px;
-  background-color: rgba(10, 54, 92, 0.08);
-  border-radius: 9999px;
-  width: 100%;
-}
-
-.skeleton-row-short {
-  width: 60%;
-}
-
-.skeleton-shapes {
-  display: flex;
-  gap: 0.75rem;
-  flex-grow: 1;
-  margin: 1rem 0;
-  align-items: flex-end;
-}
-
-.skeleton-shape-bar {
-  flex-grow: 1;
-  background-color: rgba(10, 54, 92, 0.04);
-  border-radius: 4px;
-  height: 20%;
-  transition: var(--transition-smooth);
-}
-
-.skeleton-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px dashed rgba(10, 54, 92, 0.15);
-  background-color: transparent;
-  transition: var(--transition-smooth);
-}
-
-/* Hover modifications to Skeletons */
-.feature-item:hover .skeleton-container {
-  border-color: rgba(75, 183, 73, 0.4);
-  background-color: rgba(75, 183, 73, 0.01);
-  box-shadow: 0 10px 25px -10px rgba(75, 183, 73, 0.1);
-}
-
-.feature-item:hover .skeleton-graphic {
-  opacity: 1;
-}
-
-.feature-item:hover .skeleton-circle {
-  border-color: var(--color-green-light);
-  transform: rotate(45deg) scale(1.05);
-  background-color: rgba(75, 183, 73, 0.05);
-}
-
-.feature-item:hover .skeleton-shape-bar {
-  background-color: rgba(0, 142, 206, 0.1);
-}
-
-.feature-item:hover .skeleton-shape-bar:nth-child(1) { height: 70%; background-color: rgba(75, 183, 73, 0.15); }
-.feature-item:hover .skeleton-shape-bar:nth-child(2) { height: 95%; background-color: rgba(10, 54, 92, 0.15); }
-.feature-item:hover .skeleton-shape-bar:nth-child(3) { height: 50%; background-color: rgba(0, 142, 206, 0.15); }
-
-.feature-info h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-}
-
 /* ─── Projects Gallery (Showcase Slider) ─── */
 .gallery {
   /* padding: var(--section-padding); */
@@ -2771,7 +2638,7 @@ header.scrolled .btn-secondary:hover {
 
 /* The animated word itself */
 #changing-word,
-#changing-word-services {
+#changing-word-features {
   display: inline-block;
   color: var(--color-yellow); /* #f9b012 — pops on dark hero overlay */
   will-change: transform, opacity, filter;
@@ -3186,10 +3053,10 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 /* ==========================================================================
-   SERVICES SECTION - PREMIUM 2X3 GRID WITH MIXED CARDS
+   FEATURES SECTION - PREMIUM 2X3 GRID WITH MIXED CARDS
    ========================================================================== */
 
-.services-section {
+.features-section {
   padding: 100px;
   background-color: var(--bg-site);
   position: relative;
@@ -3197,18 +3064,18 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 @media (max-width: 768px) {
-  .services-section {
+  .features-section {
     padding: var(--section-padding-mobile);
   }
 }
 
-.services-header-wrap {
+.features-header-wrap {
   margin-bottom: 4rem;
   max-width: 800px;
   text-align: left;
 }
 
-.services-eyebrow {
+.features-eyebrow {
   display: inline-block;
   font-family: var(--font-primary);
   font-weight: 700;
@@ -3219,7 +3086,7 @@ h2.section-title.navy-reveal .title-fill {
   margin-bottom: 1.25rem;
 }
 
-.services-title {
+.features-title {
   font-family: var(--font-primary);
   font-size: clamp(2.5rem, 4.5vw, 4rem);
   font-weight: 800;
@@ -3229,7 +3096,7 @@ h2.section-title.navy-reveal .title-fill {
   margin-bottom: 1.5rem;
 }
 
-.services-subtitle {
+.features-subtitle {
   font-family: var(--font-secondary);
   font-size: 1.1rem;
   color: var(--text-muted);
@@ -3237,21 +3104,21 @@ h2.section-title.navy-reveal .title-fill {
   margin-bottom: 2.25rem;
 }
 
-.services-actions {
+.features-actions {
   display: flex;
   gap: 1rem;
 }
 
-/* 2x3 Services Grid */
-.services-grid {
+/* 2x3 Features Grid */
+.features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   align-items: stretch;
 }
 
-/* Base Service Card styling */
-.service-card {
+/* Base Feature Card styling */
+.feature-card {
   border-radius: 24px;
   position: relative;
   overflow: hidden;
@@ -3262,7 +3129,7 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 /* Content Card specific styling */
-.service-card.content-card {
+.feature-card.content-card {
   background-color: #eaeae4; /* Premium warm sand/linen color from the reference */
   padding: 3rem 2.5rem;
   justify-content: flex-start;
@@ -3272,7 +3139,7 @@ h2.section-title.navy-reveal .title-fill {
   border: 1px solid rgba(10, 54, 92, 0.04);
 }
 
-.service-card.content-card:hover {
+.feature-card.content-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(10, 54, 92, 0.08);
   background-color: #e4e5df;
@@ -3299,7 +3166,7 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 /* Content Details */
-.service-card.content-card h3.card-title {
+.feature-card.content-card h3.card-title {
   font-family: var(--font-primary);
   font-size: 1.5rem;
   font-weight: 700;
@@ -3308,7 +3175,7 @@ h2.section-title.navy-reveal .title-fill {
   line-height: 1.2;
 }
 
-.service-card.content-card p.card-description {
+.feature-card.content-card p.card-description {
   font-family: var(--font-secondary);
   font-size: 1rem;
   color: var(--text-main);
@@ -3347,19 +3214,19 @@ h2.section-title.navy-reveal .title-fill {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card:hover .card-cta::after {
+.feature-card:hover .card-cta::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
 /* Image Card specific styling */
-.service-card.image-card {
+.feature-card.image-card {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
-.service-card.image-card:hover {
+.feature-card.image-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(10, 54, 92, 0.1);
 }
@@ -3371,7 +3238,7 @@ h2.section-title.navy-reveal .title-fill {
   border-radius: 24px;
 }
 
-.service-card.image-card img {
+.feature-card.image-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -3379,33 +3246,33 @@ h2.section-title.navy-reveal .title-fill {
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card.image-card:hover img {
+.feature-card.image-card:hover img {
   transform: scale(1.05);
 }
 
 /* Responsive Grid Media Queries */
 @media (max-width: 1024px) {
-  .services-grid {
+  .features-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  .service-card {
+  .feature-card {
     min-height: 380px;
   }
 }
 
 @media (max-width: 768px) {
-  .services-grid {
+  .features-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  .service-card {
+  .feature-card {
     min-height: auto;
   }
-  .services-header-wrap {
+  .features-header-wrap {
     margin-bottom: 2.5rem;
   }
-  .service-card.content-card {
+  .feature-card.content-card {
     padding: 2.5rem 2rem;
   }
 }

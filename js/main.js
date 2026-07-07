@@ -22,7 +22,28 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.ticker.lagSmoothing(0);
   window.__lenis = lenis;
 
+  // 2. Smooth Anchor Navigation (Lenis) — desktop nav-links + mobile menu links
+  const HEADER_OFFSET = -90; // keeps target title clear of the fixed header
+  document.querySelectorAll('.nav-links a, .mobile-menu-links a').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href.charAt(0) !== '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
 
+      e.preventDefault();
+      window.__lenis && window.__lenis.scrollTo(target, {
+        offset: HEADER_OFFSET,
+        duration: 1.2,
+        easing: (t) => 1 - Math.pow(1 - t, 3), // easeOutCubic — premium, not sluggish
+      });
+
+      // Auto-close mobile menu if it was open
+      if (mobileMenu && mobileMenu.classList.contains('active') && mobileToggle) {
+        mobileToggle.click();
+      }
+    });
+  });
 
   // 3. Magnetic Hover Buttons (Magnet Effect)
   const magneticBtns = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-arrow-btn');
@@ -161,9 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
   })();
 
-  // 6c. Services title — cycling word animation ("Infrastructure" → "Portfolios" → "Assets")
-  (function initServicesChangingWord() {
-    const wordEl = document.getElementById('changing-word-services');
+  // 6c. Features title — cycling word animation ("Infrastructure" → "Portfolios" → "Assets")
+  (function initFeaturesChangingWord() {
+    const wordEl = document.getElementById('changing-word-features');
     if (!wordEl) return;
 
     const words = ['Infrastructure', 'Portfolios', 'Assets'];
@@ -1009,13 +1030,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function initSectionRevealAnimations() {
     const childSelectors = [
       // 1. Heading
-      'h1, h2, h3, .section-title, .about-title, .services-title, .si-heading, .lo-title, .tm-heading, .nri-title, .cf-heading, .works-hero-title, .hero-video-title',
+      'h1, h2, h3, .section-title, .about-title, .features-title, .si-heading, .lo-title, .tm-heading, .nri-title, .cf-heading, .works-hero-title, .hero-video-title',
       // 2. Subtitle
-      '.hero-video-subtitle, .services-subtitle, .lo-subtitle, .tm-desc, .si-desc, .works-tag, .lo-eyebrow, .services-eyebrow, .about-tag, .si-tag, .cf-tag, .hero-video-metadata',
+      '.hero-video-subtitle, .features-subtitle, .lo-subtitle, .tm-desc, .si-desc, .works-tag, .lo-eyebrow, .features-eyebrow, .about-tag, .si-tag, .cf-tag, .hero-video-metadata',
       // 3. Paragraph
       'p, .about-text, .nri-text p',
       // 4. Cards
-      '.stats-card, .service-card, .si-card, .tm-card, .nri-card, .feature-item, .about-point-card, .lo-item, .partner-logo-item, .form-group',
+      '.stats-card, .feature-card, .si-card, .tm-card, .nri-card, .about-point-card, .lo-item, .partner-logo-item, .form-group',
       // 5. Buttons
       '.btn-primary, .btn-secondary, .cf-submit-btn, .nri-link, .lo-learn-more, .card-cta, .si-nav-arrows button, .tm-nav-arrows button, .sg-controls button, .cf-footer-cta, .btn-video-text, .hero-video-btn',
       // 6. Images
@@ -1028,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '#hero',
       '.hero-stats-strip',
       '#about',
-      '#services',
+      '#features',
       '#bento',
       '#gallery',
       '#location',
