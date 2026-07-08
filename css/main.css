@@ -3090,6 +3090,123 @@ header.scrolled .btn-secondary:hover {
   }
 }
 
+/* ==========================================================================
+   TABLET HERO — 769px to 1024px
+   Centers the person in frame, tightens text hierarchy and CTA sizing so
+   the hero doesn't feel stretched between the mobile and desktop layouts.
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* 1. Center the person's face/upper body symmetrically in the frame.
+     Source image is 3840x2160 with the face sitting at ~76% across, so at
+     cover-cropped tablet aspect ratios we shift x toward that mark to bring
+     the face to the visual center rather than using a literal 50%. */
+  .hero-bg-image {
+    object-position: 78% 18%;
+  }
+
+  /* Slight darkening so text stays legible against a centered, larger subject */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(10, 54, 92, 0.25) 0%, rgba(10, 54, 92, 0.4) 45%, rgba(10, 54, 92, 0.82) 100%);
+    pointer-events: none;
+  }
+
+  .hero-video-container {
+    padding: 0 3rem 13% 3rem;
+  }
+
+  .hero-text-block {
+    max-width: 560px;
+    gap: 1.15rem;
+  }
+
+  /* 2. Tuned type scale for tablet proportions */
+  .hero-video-title {
+    font-size: 2.6rem;
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-video-subtitle {
+    font-size: 0.98rem;
+    max-width: 460px;
+    line-height: 1.6;
+  }
+
+  /* 3. Balanced CTA sizing — smaller than desktop, larger than mobile */
+  .hero-video-actions {
+    gap: 1.75rem;
+    margin-top: 1rem;
+  }
+
+  .hero-video-btn {
+    padding: 0.85rem 1.85rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-video-text {
+    font-size: 0.95rem;
+  }
+
+  /* 4. Metadata + scroll cue spacing */
+  .hero-video-metadata {
+    left: 3rem;
+    right: 3rem;
+    bottom: 5%;
+    font-size: 0.72rem;
+  }
+
+  /* 5. Hero stats strip — keep the 3-card grid but scale it down so it
+     doesn't feel cramped between the mobile (stacked) and desktop layouts. */
+  .hero-stats-strip {
+    padding: 4.5rem 2.5rem;
+  }
+
+  .stats-new-grid {
+    grid-template-columns: 1fr 4fr;
+    gap: 2rem;
+  }
+
+  .stats-new-desc {
+    font-size: 1.35rem;
+    line-height: 1.45;
+    margin-bottom: 2.25rem;
+    max-width: 100%;
+  }
+
+  .stats-cards-grid {
+    gap: 1.1rem;
+  }
+
+  .stats-card {
+    padding: 1.4rem;
+  }
+
+  .stats-card-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 1.25rem;
+  }
+
+  .stats-card-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .stats-card-number {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .stats-card-label {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-video-container {
     padding-bottom: 9%;
