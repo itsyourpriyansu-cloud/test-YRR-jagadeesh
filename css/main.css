@@ -2831,7 +2831,7 @@ header.scrolled .btn-secondary:hover {
 
 .hero-video-title {
   font-family: var(--font-primary);
-  font-size: clamp(2.5rem, 4.5vw, 4.35rem);
+  font-size: clamp(2.5rem, 4.2vw, 4.35rem);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.12;
