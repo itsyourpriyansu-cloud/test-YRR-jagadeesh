@@ -3156,13 +3156,14 @@ header.scrolled .btn-secondary:hover {
     object-position: 78% 18%;
   }
 
-  /* Slight darkening so text stays legible against a centered, larger subject */
+  /* Tablet: no full-screen overlay — show the person clearly.
+     Only a slim bottom-fade keeps the text block legible. */
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(10, 54, 92, 0.25) 0%, rgba(10, 54, 92, 0.4) 45%, rgba(10, 54, 92, 0.82) 100%);
+    background: linear-gradient(to top, rgba(5, 10, 18, 0.72) 0%, rgba(5, 10, 18, 0.38) 28%, transparent 55%);
     pointer-events: none;
   }
 
@@ -3272,12 +3273,14 @@ header.scrolled .btn-secondary:hover {
     object-position: 84% center;
   }
 
+  /* Mobile: no full-screen overlay — show the person clearly.
+     A gentle bottom-only fade keeps text readable without masking the image. */
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(10, 54, 92, 0.35) 0%, rgba(10, 54, 92, 0.55) 40%, rgba(10, 54, 92, 0.92) 100%);
+    background: linear-gradient(to top, rgba(5, 10, 18, 0.80) 0%, rgba(5, 10, 18, 0.42) 30%, transparent 58%);
     pointer-events: none;
   }
 
