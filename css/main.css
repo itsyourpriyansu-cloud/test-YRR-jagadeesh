@@ -1055,8 +1055,8 @@ header.scrolled .logo-img.logo-sticky {
   border-radius: 32px;
   overflow: hidden;
   background-color: #0d1b2a;
-  box-shadow: 0 30px 60px -15px rgba(10, 54, 92, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* box-shadow: 0 30px 60px -15px rgba(10, 54, 92, 0.25); */
+  /* border: 1px solid rgba(255, 255, 255, 0.08); */
 }
 
 .sg-slides-track {
@@ -1198,7 +1198,7 @@ iframe.sg-img {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.25rem 3rem 2.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
   z-index: 4;
 }
 
