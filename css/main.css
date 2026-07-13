@@ -1734,14 +1734,15 @@ iframe.sg-img {
 /* Individual testimonial card */
 .tm-card {
   flex-shrink: 0;
-  width: 340px;
-  height: 480px;
-  border-radius: 20px;
-  overflow: hidden;
+  width: min(360px, 82vw);
+  min-height: 260px;
+  border-radius: 22px;
   background-color: #131f2e;
   border: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
@@ -1750,80 +1751,53 @@ iframe.sg-img {
   border-color: rgba(75, 183, 73, 0.35);
 }
 
-/* Portrait photo */
-.tm-card-portrait {
-  width: 100%;
-  height: 320px;
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.tm-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  display: block;
-}
-
-.tm-card:hover .tm-card-img {
-  transform: scale(1.06);
-}
-
-/* Card text area */
-.tm-card-body {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  flex: 1;
-}
-
-/* Star rating */
-.tm-stars {
-  display: flex;
-  gap: 3px;
-}
-
-.tm-stars svg {
-  width: 14px;
-  height: 14px;
-  fill: var(--color-yellow);
-}
-
 /* Quote text */
 .tm-card-quote {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.78);
-  line-height: 1.65;
-  font-style: italic;
-  flex: 1;
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 /* Author block */
 .tm-card-author {
   display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+.tm-card-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.tm-author-info {
+  display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  min-width: 0;
 }
 
 .tm-author-name {
   font-family: var(--font-primary);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.01em;
 }
 
 .tm-author-role {
-  font-size: 0.78rem;
-  color: var(--color-green-light);
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 /* ─── NRI Support Section ─── */
@@ -2570,30 +2544,49 @@ iframe.sg-img {
   }
 
   .tm-card {
-    width: 260px;
-    height: auto;
-  }
-
-  .tm-card-portrait {
-    height: 170px;
-  }
-
-  .tm-card-body {
-    padding: 1.15rem;
-    gap: 0.65rem;
+    width: min(300px, 78vw);
+    min-height: 0;
+    padding: 1.5rem;
+    border-radius: 18px;
   }
 
   .tm-card-quote {
-    font-size: 0.82rem;
-    line-height: 1.55;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .tm-card-author {
+    margin-top: 1.5rem;
+    gap: 0.7rem;
+  }
+
+  .tm-card-avatar {
+    width: 38px;
+    height: 38px;
   }
 
   .tm-author-name {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
 
   .tm-author-role {
     font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tm-cards-track {
+    padding: 1.25rem 1.25rem 1.75rem;
+    gap: 0.85rem;
+  }
+
+  .tm-card {
+    width: min(272px, 82vw);
+    padding: 1.25rem;
+  }
+
+  .tm-card-quote {
+    font-size: 0.88rem;
   }
 }
 

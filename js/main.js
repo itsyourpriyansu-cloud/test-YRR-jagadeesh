@@ -1142,7 +1142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // 5. Buttons
       '.btn-primary, .btn-secondary, .cf-submit-btn, .nri-link, .lo-learn-more, .card-cta, .si-nav-arrows button, .tm-nav-arrows button, .sg-controls button, .cf-footer-cta, .btn-video-text, .hero-video-btn',
       // 6. Images
-      '.about-photo-card, .lo-visual, .nri-card img, .cf-footer-logo, .hero-bg-image, .about-bg-image, .lo-visual-img, .partner-logo-img, .tm-card-portrait',
+      '.about-photo-card, .lo-visual, .nri-card img, .cf-footer-logo, .hero-bg-image, .about-bg-image, .lo-visual-img, .partner-logo-img, .tm-card-avatar',
       // 7. Statistics
       '.hero-stats, .stats-cards-grid, .stat-number-val, .sg-counter'
     ];
