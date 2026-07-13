@@ -4010,6 +4010,7 @@ h2.section-title.navy-reveal .title-fill {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   --rr-accent-mint: #b9ffda;
   --rr-accent-blue: #c8e6f5;
+  --rr-accent-green: #4bb749;   /* logo brand green */
 }
 
 .rr-pillars > .container {
@@ -4037,7 +4038,7 @@ h2.section-title.navy-reveal .title-fill {
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.15em;
-  color: var(--rr-accent-mint);
+  color: var(--rr-accent-green);
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
@@ -4049,7 +4050,7 @@ h2.section-title.navy-reveal .title-fill {
   color: #ffffff;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 3.5rem;
 }
 
 .rr-pillars-heading span {
@@ -4094,7 +4095,7 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 .rr-panel:focus-visible {
-  outline: 2px solid var(--rr-accent-mint);
+  outline: 2px solid var(--rr-accent-green);
   outline-offset: 4px;
   background: rgba(255, 255, 255, 0.05);
 }
@@ -4104,7 +4105,7 @@ h2.section-title.navy-reveal .title-fill {
   position: absolute;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(185, 255, 218, 0.06) 0%, rgba(185, 255, 218, 0) 70%);
+  background: radial-gradient(circle, rgba(75, 183, 73, 0.07) 0%, rgba(75, 183, 73, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
@@ -4143,11 +4144,11 @@ h2.section-title.navy-reveal .title-fill {
   font-family: var(--font-primary);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--rr-accent-mint);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel:nth-child(2) .rr-panel-num {
-  color: var(--rr-accent-blue);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel-label-small {
@@ -4174,11 +4175,11 @@ h2.section-title.navy-reveal .title-fill {
 }
 
 .rr-panel.is-active .rr-panel-title {
-  color: var(--rr-accent-mint);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel:nth-child(2).is-active .rr-panel-title {
-  color: var(--rr-accent-blue);
+  color: var(--rr-accent-green);
 }
 
 /* Body Content (fade/slide) */
@@ -4214,14 +4215,14 @@ h2.section-title.navy-reveal .title-fill {
   font-family: var(--font-primary);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--rr-accent-mint);
+  color: var(--rr-accent-green);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
 }
 
 .rr-panel:nth-child(2) .rr-panel-cta {
-  color: var(--rr-accent-blue);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel.is-active .rr-panel-cta {
@@ -4254,11 +4255,11 @@ h2.section-title.navy-reveal .title-fill {
 
 .rr-panel.is-active .rr-panel-artwork {
   opacity: 0.7;
-  color: var(--rr-accent-mint);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel:nth-child(2).is-active .rr-panel-artwork {
-  color: var(--rr-accent-blue);
+  color: var(--rr-accent-green);
 }
 
 .rr-panel-svg {
@@ -4267,114 +4268,380 @@ h2.section-title.navy-reveal .title-fill {
   display: block;
 }
 
-/* Responsive (Tablet & Mobile Breakpoints) */
+/* ─────────────────────────────────────────────────────────────
+   BRAND PILLARS – RESPONSIVE OVERHAUL
+   Breakpoints:  ≤1024  tablet  |  ≤768  small-tablet  |  ≤480  mobile
+   ───────────────────────────────────────────────────────────── */
+
+/* ── TABLET (≤1024px) ─────────────────────────────── */
 @media (max-width: 1024px) {
+
+  /* Section – leave normal document flow; no 100vh constraint */
   .rr-pillars {
     height: auto;
     min-height: auto;
     display: block;
-    padding: 6rem 0;
+    padding: 5rem 0 4rem;
   }
-  
+
+  /* Container resets */
   .rr-pillars > .container {
     height: auto;
     max-height: none;
-    display: block;
-    gap: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 0 1.75rem;
   }
 
+  /* Header block */
+  .rr-pillars-header {
+    max-width: 100%;
+  }
+
+  .rr-pillars-eyebrow {
+    font-size: 0.8rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .rr-pillars-heading {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .rr-pillars-subtext {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  /* Grid → vertical accordion stack */
   .rr-pillars-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0.75rem;
     min-height: auto;
-  }
-
-  .rr-panel {
-    flex: none !important; /* disable flex growth */
     width: 100%;
-    padding: 2.25rem;
-    min-height: auto;
-    border-radius: 20px;
   }
 
+  /* ── Accordion panel shell ── */
+  .rr-panel {
+    flex: none !important;
+    width: 100%;
+    min-height: auto;
+    border-radius: 16px;
+    padding: 0;                         /* managed by inner elements */
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.35s ease, background-color 0.35s ease;
+  }
+
+  .rr-panel.is-active {
+    border-color: rgba(75,183,73,0.35); /* logo-green tint */
+    background: rgba(75,183,73,0.04);
+  }
+
+  /* focus ring */
+  .rr-panel:focus-visible {
+    outline: 2px solid var(--color-green-light);
+    outline-offset: 2px;
+  }
+
+  /* Content wrapper: always visible, acts as the accordion header */
+  .rr-panel-content {
+    height: auto;
+    display: block;
+    padding: 1.5rem 1.5rem 0;          /* top / sides; bottom added below */
+    pointer-events: none;
+  }
+
+  .rr-panel-content * {
+    pointer-events: auto;
+  }
+
+  /* Meta row (number + label) */
   .rr-panel-meta {
-    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .rr-panel-num {
+    font-size: 1rem;
+    color: var(--color-green-light);
+  }
+
+  /* All three numbers use the same brand green on mobile */
+  .rr-panel:nth-child(2) .rr-panel-num {
+    color: var(--color-green-light);
   }
 
   .rr-panel-label-small {
-    display: none;
+    display: inline-block;             /* re-show on tablet as small tag */
+    opacity: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    transition: opacity 0.3s ease;
   }
 
+  .rr-panel.is-active .rr-panel-label-small {
+    opacity: 1;
+  }
+
+  /* Title – always visible, acts as accordion trigger */
   .rr-panel-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 0;
+    color: rgba(255,255,255,0.85);
+    transition: color 0.3s ease;
+    padding-bottom: 1.25rem;
   }
 
   .rr-panel.is-active .rr-panel-title {
-    margin-bottom: 1.25rem;
+    color: var(--color-green-light);
+    padding-bottom: 0.5rem;
   }
 
-  /* Accordion behavior for body */
+  /* Hide per-panel blue active override – use uniform green on mobile */
+  .rr-panel:nth-child(2).is-active .rr-panel-title {
+    color: var(--color-green-light);
+  }
+
+  /* ── Accordion: body collapses/expands ── */
   .rr-panel-body {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transform: none !important;
-    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    padding: 0 1.5rem;
+    transition:
+      max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity    0.4s ease,
+      padding    0.4s ease;
   }
 
   .rr-panel.is-active .rr-panel-body {
-    max-height: 250px;
+    max-height: 260px;
     opacity: 1;
+    padding: 0 1.5rem 0.25rem;
   }
 
+  .rr-panel-desc {
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  /* ── Accordion: bottom / CTA collapses/expands ── */
   .rr-panel-bottom {
-    padding-top: 0;
+    padding: 0 1.5rem;
     margin-top: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      padding    0.4s ease;
+  }
+
+  .rr-panel.is-active .rr-panel-bottom {
+    max-height: 70px;
+    padding: 0.25rem 1.5rem 1.5rem;
   }
 
   .rr-panel-cta {
-    max-height: 0;
+    display: inline-flex;
     opacity: 0;
+    max-height: 0;
     overflow: hidden;
     transform: none !important;
-    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    color: var(--color-green-light);
+    transition:
+      opacity    0.35s ease 0.1s,
+      max-height 0.4s ease;
+  }
+
+  .rr-panel:nth-child(2) .rr-panel-cta {
+    color: var(--color-green-light);
   }
 
   .rr-panel.is-active .rr-panel-cta {
-    max-height: 40px;
     opacity: 1;
-    margin-top: 1.5rem;
+    max-height: 40px;
   }
 
+  /* Artwork – small, tucked in corner, barely visible */
   .rr-panel-artwork {
-    width: 120px;
-    height: 120px;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0.15;
+    width: 90px;
+    height: 90px;
+    bottom: 8px;
+    right: 8px;
+    opacity: 0.1;
+    color: rgba(255,255,255,0.3);
   }
 
   .rr-panel.is-active .rr-panel-artwork {
-    opacity: 0.25;
+    opacity: 0.2;
+    color: var(--color-green-light);
+  }
+
+  .rr-panel:nth-child(2).is-active .rr-panel-artwork {
+    color: var(--color-green-light);
+  }
+
+  /* Kill desktop glow on touch devices */
+  .rr-panel-glow {
+    display: none;
   }
 }
 
-@media (max-width: 480px) {
+/* ── SMALL TABLET (≤768px) ────────────────────────── */
+@media (max-width: 768px) {
+
   .rr-pillars {
-    padding: 5rem 0;
+    padding: 4.5rem 0 3.5rem;
+  }
+
+  .rr-pillars > .container {
+    padding: 0 1.25rem;
+    gap: 2rem;
+  }
+
+  .rr-pillars-heading {
+    font-size: clamp(1.65rem, 6vw, 2.4rem);
+  }
+
+  .rr-pillars-subtext {
+    font-size: 0.97rem;
+  }
+
+  .rr-pillars-grid {
+    gap: 0.6rem;
+  }
+
+  .rr-panel-title {
+    font-size: 1.2rem;
+  }
+
+  .rr-panel-content {
+    padding: 1.25rem 1.25rem 0;
+  }
+
+  .rr-panel.is-active .rr-panel-body {
+    padding: 0 1.25rem 0.25rem;
+  }
+
+  .rr-panel.is-active .rr-panel-bottom {
+    padding: 0.25rem 1.25rem 1.25rem;
+  }
+
+  .rr-panel-body {
+    padding: 0 1.25rem;
+  }
+
+  .rr-panel-bottom {
+    padding: 0 1.25rem;
+  }
+
+  .rr-panel-artwork {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+/* ── MOBILE (≤480px) ──────────────────────────────── */
+@media (max-width: 480px) {
+
+  .rr-pillars {
+    padding: 4rem 0 3rem;
+  }
+
+  .rr-pillars > .container {
+    padding: 0 1rem;
+    gap: 1.75rem;
+  }
+
+  .rr-pillars-eyebrow {
+    font-size: 0.75rem;
+  }
+
+  .rr-pillars-heading {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    margin-bottom: 0.6rem;
+  }
+
+  .rr-pillars-subtext {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .rr-pillars-grid {
+    gap: 0.5rem;
   }
 
   .rr-panel {
-    padding: 1.75rem;
+    border-radius: 14px;
+  }
+
+  .rr-panel-content {
+    padding: 1.1rem 1.1rem 0;
+  }
+
+  .rr-panel-num {
+    font-size: 0.9rem;
+  }
+
+  .rr-panel-title {
+    font-size: 1.1rem;
+    padding-bottom: 1rem;
+  }
+
+  .rr-panel.is-active .rr-panel-title {
+    padding-bottom: 0.4rem;
+  }
+
+  .rr-panel-desc {
+    font-size: 0.9rem;
+  }
+
+  .rr-panel-body {
+    padding: 0 1.1rem;
+  }
+
+  .rr-panel.is-active .rr-panel-body {
+    max-height: 300px;
+    padding: 0 1.1rem 0.2rem;
+  }
+
+  .rr-panel-bottom {
+    padding: 0 1.1rem;
+  }
+
+  .rr-panel.is-active .rr-panel-bottom {
+    padding: 0.2rem 1.1rem 1.2rem;
+  }
+
+  .rr-panel-cta {
+    font-size: 0.85rem;
+  }
+
+  .rr-panel-artwork {
+    width: 60px;
+    height: 60px;
+    opacity: 0.08;
+  }
+
+  .rr-panel.is-active .rr-panel-artwork {
+    opacity: 0.15;
   }
 }
 
-/* Accessibility & Motion Preferences */
+/* ── Reduced Motion ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .rr-panel,
   .rr-panel-body,
+  .rr-panel-bottom,
   .rr-panel-cta,
   .rr-panel-artwork,
   .rr-panel-glow {
@@ -4382,5 +4649,3 @@ h2.section-title.navy-reveal .title-fill {
     transform: none !important;
   }
 }
-
-
