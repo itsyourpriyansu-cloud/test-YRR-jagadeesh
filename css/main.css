@@ -2633,8 +2633,8 @@ header {
   width: 100%;
   z-index: 100;
   padding: 1.75rem 0;
-  /* background-color:  rgb(255 255 255 / 27%);; /* Frosted sheen */
-  backdrop-filter: blur(12px); */
+  /* background-color:  rgb(255 255 255 / 27%); Frosted sheen */
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
