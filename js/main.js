@@ -289,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const isMobile = window.innerWidth <= 1024;
       const prevActive = document.querySelector('.rr-panel.is-active');
 
       if (prevActive) {
@@ -306,19 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
       targetPanel.classList.add('is-active');
       targetPanel.setAttribute('aria-expanded', 'true');
       targetPanel.setAttribute('aria-selected', 'true');
-
-      if (!isMobile) {
-        // Desktop transition using flexGrow
-        panels.forEach((p) => {
-          const isTarget = p === targetPanel;
-          gsap.to(p, {
-            flexGrow: isTarget ? 2.2 : 0.6,
-            duration: prefersReducedMotion ? 0 : 0.7,
-            ease: 'power3.inOut',
-            overwrite: 'auto'
-          });
-        });
-      }
     }
 
     // --- INTERACTIVE EVENTS (DESKTOP HOVER / CLICK / FOCUS) ---
@@ -390,37 +376,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // --- RESPONSIVE RESET ON RESIZE ---
-    let wasMobile = window.innerWidth <= 1024;
-    window.addEventListener('resize', () => {
-      const isMobile = window.innerWidth <= 1024;
-      if (isMobile !== wasMobile) {
-        wasMobile = isMobile;
-        // Reset inline flexGrow styles when shifting breakpoints
-        panels.forEach((p) => {
-          gsap.killTweensOf(p);
-          p.style.flexGrow = '';
-        });
-        
-        // Re-sync active states
-        const activePanel = document.querySelector('.rr-panel.is-active') || panels[0];
-        if (activePanel) {
-          activePanel.classList.remove('is-active'); // force reactivate
-          activatePanel(activePanel);
-        }
-      }
-    });
-
     // --- INITIALIZE DEFAULT STATE ---
     const initialActive = document.querySelector('.rr-panel.is-active') || panels[0];
     if (initialActive) {
-      if (window.innerWidth > 1024) {
-        // Set initial flexGrow values immediately without animation
-        panels.forEach((p) => {
-          const isTarget = p === initialActive;
-          gsap.set(p, { flexGrow: isTarget ? 2.2 : 0.6 });
-        });
-      }
       initialActive.classList.add('is-active');
       initialActive.setAttribute('aria-expanded', 'true');
       initialActive.setAttribute('aria-selected', 'true');
@@ -927,10 +885,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Drag-to-scroll
     let isDragging = false;
-    let startX, scrollStart;
+    let startX, scrollStart, dragMoved;
+
+    // Suppress the card-open click that follows a real drag gesture
+    track.addEventListener('click', (e) => {
+      if (dragMoved) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
 
     track.addEventListener('mousedown', (e) => {
       isDragging = true;
+      dragMoved  = false;
       startX     = e.clientX;
       scrollStart = track.scrollLeft;
       track.style.userSelect = 'none';
@@ -939,6 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       const dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) dragMoved = true;
       track.scrollLeft = scrollStart - dx;
     });
 
@@ -1132,7 +1100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // 5. Buttons
       '.btn-primary, .btn-secondary, .cf-submit-btn, .nri-link, .lo-learn-more, .card-cta, .si-nav-arrows button, .tm-nav-arrows button, .sg-controls button, .cf-footer-cta, .btn-video-text, .hero-video-btn',
       // 6. Images
-      '.about-photo-card, .lo-visual, .nri-card img, .cf-footer-logo, .hero-bg-image, .about-bg-image, .lo-visual-img, .partner-logo-img, .tm-card-portrait',
+      '.about-photo-card, .lo-visual, .nri-card img, .cf-footer-logo, .hero-bg-image, .about-bg-image, .lo-visual-img, .partner-logo-img, .tm-card-avatar',
       // 7. Statistics
       '.hero-stats, .stats-cards-grid, .stat-number-val, .sg-counter'
     ];
@@ -1263,6 +1231,176 @@ document.addEventListener('DOMContentLoaded', () => {
         closeLightbox();
       }
     });
+  })();
+
+  // 14. Amenities Gallery Lightbox
+  (function () {
+    const AMENITIES = [
+      { title: 'Central Park', desc: 'A sprawling green heart of the community, where mornings begin with birdsong and evenings unwind under open skies.', img: 'Assets/Amenities/central-park.jpg' },
+      { title: "Children's Play Area", desc: 'A vibrant, safety-first playscape designed for laughter, imagination and endless little adventures.', img: 'Assets/Amenities/children-playarea.jpg' },
+      { title: 'Landscaped Gardens', desc: 'Manicured lawns, sculpted pathways and seasonal blooms crafted for quiet strolls and picture-perfect moments.', img: 'Assets/Amenities/garden-spot.jpg' },
+      { title: 'Jogging Track', desc: 'A palm-fringed track that turns every run into a scenic escape, right at your doorstep.', img: 'Assets/Amenities/roads.jpg' },
+      { title: 'Clubhouse', desc: 'An elegant gathering space where residents connect, celebrate and unwind in refined comfort.', img: 'Assets/Amenities/chill-out-spot.jpg' },
+      { title: 'Swimming Pool', desc: 'A resort-style pool framed by lush greenery, your personal retreat for sunlit swims and calm evenings.', img: 'Assets/Amenities/swimming-pool.jpg' },
+      { title: 'Outdoor Gym & Sports Zone', desc: 'Multi-court arenas and open-air fitness zones built for an active, energised lifestyle.', img: 'Assets/Amenities/sports.jpg' },
+      { title: 'Open Air Theatre', desc: 'A tiered lawn amphitheatre under the stars, set for movie nights, performances and community gatherings.', img: 'Assets/Amenities/open-theatre.jpg' },
+      { title: 'Blossom Bridge', desc: 'A charming timber bridge weaving through fragrant gardens, made for slow evening walks.', img: 'Assets/Amenities/blossom-bridge.jpg' },
+      { title: 'Avenue Plantation', desc: 'Tree-lined avenues and shaded fountains that welcome you home with quiet, verdant elegance.', img: 'Assets/Amenities/avenue-plantation.jpg' },
+      { title: 'Entrance Plaza', desc: 'A striking gateway of architecture and light, the first impression of a life well-designed.', img: 'Assets/Amenities/entrance-plaza.jpg' },
+      { title: "Senior Citizens' Park", desc: 'A tranquil garden retreat with shaded pavilions, designed for gentle conversations and peaceful afternoons.', img: 'Assets/Amenities/senior-citizens-park.jpg' },
+      // Bonus gallery shots — no dedicated card, but browsable from any card's lightbox
+      { title: 'Community Aerial View', desc: 'A bird\'s-eye look at the master-planned layout, where parks and play zones weave through every avenue.', img: 'Assets/Amenities/community-aerial-view.jpg' },
+      { title: 'Bougainvillea Avenue', desc: 'Blossom-lined boulevards that turn every drive home into a scenic one.', img: 'Assets/Amenities/bougainvillea-avenue.jpg' },
+      { title: 'Sculpture Fountain Plaza', desc: 'An artful water feature framed by palms, a serene landmark at the heart of the community.', img: 'Assets/Amenities/sculpture-fountain-plaza.jpg' },
+      { title: 'Poolside Deck', desc: 'Sun loungers and shaded corners set around the water, made for lazy weekend afternoons.', img: 'Assets/Amenities/poolside-deck.jpg' },
+      { title: 'Garden Sculpture at Dusk', desc: 'Illuminated art and manicured lawns that turn evening walks into something memorable.', img: 'Assets/Amenities/garden-sculpture-dusk.jpg' },
+      { title: 'Palm Fountain Walkway', desc: 'A shaded, palm-canopied path leading to a tranquil fountain courtyard.', img: 'Assets/Amenities/palm-fountain-walkway.jpg' }
+    ];
+
+    const cards      = document.querySelectorAll('.si-card[data-amenity-index]');
+    const lightbox   = document.getElementById('am-lightbox');
+    const overlay    = document.getElementById('am-lightbox-overlay');
+    const closeBtn   = document.getElementById('am-lightbox-close');
+    const prevBtn    = document.getElementById('am-lightbox-prev');
+    const nextBtn    = document.getElementById('am-lightbox-next');
+    const stage      = document.getElementById('am-lightbox-stage');
+    const imgEl      = document.getElementById('am-lightbox-img');
+    const titleEl    = document.getElementById('am-lightbox-title');
+    const descEl     = document.getElementById('am-lightbox-desc');
+    const counterEl  = document.getElementById('am-lightbox-counter');
+    const thumbsWrap = document.getElementById('am-lightbox-thumbs');
+
+    if (!cards.length || !lightbox || !imgEl || !thumbsWrap) return;
+
+    let currentIndex = 0;
+    let isOpen = false;
+
+    // Build thumbnail strip once
+    const thumbEls = AMENITIES.map((item, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'am-lightbox-thumb';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'View ' + item.title);
+      const thumbImg = document.createElement('img');
+      thumbImg.src = item.img;
+      thumbImg.alt = '';
+      thumbImg.loading = 'lazy';
+      btn.appendChild(thumbImg);
+      btn.addEventListener('click', () => goTo(i));
+      thumbsWrap.appendChild(btn);
+      return btn;
+    });
+
+    /** Preload the images adjacent to the given index for smooth navigation */
+    function preloadAdjacent(index) {
+      [index - 1, index + 1].forEach((i) => {
+        const idx = (i + AMENITIES.length) % AMENITIES.length;
+        const preloadImg = new Image();
+        preloadImg.src = AMENITIES[idx].img;
+      });
+    }
+
+    function render(index, skipFade) {
+      const item = AMENITIES[index];
+
+      const applyContent = () => {
+        imgEl.src = item.img;
+        imgEl.alt = item.title;
+        titleEl.textContent = item.title;
+        descEl.textContent = item.desc;
+        counterEl.textContent = (index + 1) + ' / ' + AMENITIES.length;
+        thumbEls.forEach((el, i) => el.classList.toggle('is-active', i === index));
+
+        const activeThumb = thumbEls[index];
+        if (activeThumb && activeThumb.scrollIntoView) {
+          activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      };
+
+      if (skipFade) {
+        applyContent();
+        imgEl.classList.add('is-visible');
+      } else {
+        imgEl.classList.remove('is-visible');
+        window.setTimeout(() => {
+          applyContent();
+          requestAnimationFrame(() => imgEl.classList.add('is-visible'));
+        }, 180);
+      }
+
+      preloadAdjacent(index);
+    }
+
+    function goTo(index) {
+      currentIndex = (index + AMENITIES.length) % AMENITIES.length;
+      render(currentIndex, false);
+    }
+
+    function openLightbox(index) {
+      currentIndex = index;
+      isOpen = true;
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (window.__lenis) window.__lenis.stop();
+      render(currentIndex, true);
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeLightbox() {
+      isOpen = false;
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (window.__lenis) window.__lenis.start();
+      imgEl.classList.remove('is-visible');
+    }
+
+    // Open on card click / keyboard activation
+    cards.forEach((card) => {
+      const index = parseInt(card.getAttribute('data-amenity-index'), 10);
+
+      card.addEventListener('click', () => openLightbox(index));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(index);
+        }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (overlay) overlay.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goTo(currentIndex - 1);
+      if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+    });
+
+    // Swipe gesture support (mobile)
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    if (stage) {
+      stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) goTo(currentIndex + 1);
+          else goTo(currentIndex - 1);
+        }
+      }, { passive: true });
+    }
   })();
 
   window.addEventListener('load', () => {
