@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wordEl = document.getElementById('changing-word');
     if (!wordEl) return;
 
-    const words = ['Ventures', 'Investments', 'Communities'];
+    const words = ['New Regional Ring Road', 'Bangalore Highway Chinchod', 'Near Rajiv Gandhi Airport'];
     let idx = 0;
 
     // Set initial state (visible, no filter)
@@ -266,112 +266,178 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   animateStats();
 
-  // 6b. Horizontal Scroll Text Reveal — pinned section below hero stats
-  (function initHScroll() {
-    const hSection = document.getElementById('hscrollSection');
-    const hTrack   = document.getElementById('hscrollTrack');
-    const hPhrase  = document.getElementById('hscrollPhrase');
-    if (!hSection || !hTrack || !hPhrase) return;
+  // 6b. Interactive Brand Pillars Section
+  (function initBrandPillars() {
+    const pillarsSection = document.getElementById('pillarsSection');
+    const panels = document.querySelectorAll('.rr-panel');
+    if (!pillarsSection || panels.length === 0) return;
 
-    // Phrase config: word → accent class ('' = default navy)
-    const segments = [
-      { text: 'Secure',  accent: 'hs-accent'  },
-      { text: 'Land',    accent: ''            },
-      { text: '·',       dot: true             },
-      { text: 'Grow',    accent: 'hs-accent2'  },
-      { text: 'Wealth',  accent: ''            },
-      { text: '·',       dot: true             },
-      { text: 'Build',   accent: ''            },
-      { text: 'Legacy',  accent: 'hs-accent'   },
-    ];
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    segments.forEach((seg, si) => {
-      if (seg.dot) {
-        const dot = document.createElement('span');
-        dot.className = 'hscroll-dot';
-        dot.textContent = '·';
-        hPhrase.appendChild(dot);
+    // --- ACCESSIBILITY / SETUP KEYS ---
+    panels.forEach((panel) => {
+      panel.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activatePanel(panel);
+        }
+      });
+    });
+
+    function activatePanel(targetPanel) {
+      if (targetPanel.classList.contains('is-active')) {
         return;
       }
-      // letter by letter
-      [...seg.text].forEach(ch => {
-        const span = document.createElement('span');
-        span.className = 'hscroll-letter' + (seg.accent ? ' ' + seg.accent : '');
-        span.setAttribute('aria-hidden', 'true');
-        span.textContent = ch;
-        hPhrase.appendChild(span);
+
+      const isMobile = window.innerWidth <= 1024;
+      const prevActive = document.querySelector('.rr-panel.is-active');
+
+      if (prevActive) {
+        prevActive.classList.remove('is-active');
+        prevActive.setAttribute('aria-expanded', 'false');
+        prevActive.setAttribute('aria-selected', 'false');
+        // Reset SVG artwork parallax positions in previous active panel
+        const prevArtwork = prevActive.querySelector('[data-artwork]');
+        if (prevArtwork) {
+          gsap.to(prevArtwork, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+        }
+      }
+
+      targetPanel.classList.add('is-active');
+      targetPanel.setAttribute('aria-expanded', 'true');
+      targetPanel.setAttribute('aria-selected', 'true');
+
+      if (!isMobile) {
+        // Desktop transition using flexGrow
+        panels.forEach((p) => {
+          const isTarget = p === targetPanel;
+          gsap.to(p, {
+            flexGrow: isTarget ? 2.2 : 0.6,
+            duration: prefersReducedMotion ? 0 : 0.7,
+            ease: 'power3.inOut',
+            overwrite: 'auto'
+          });
+        });
+      }
+    }
+
+    // --- INTERACTIVE EVENTS (DESKTOP HOVER / CLICK / FOCUS) ---
+    panels.forEach((panel) => {
+      // Hover event
+      panel.addEventListener('mouseenter', () => {
+        if (window.innerWidth > 1024) {
+          activatePanel(panel);
+        }
       });
-      // space between words (not after last)
-      if (si < segments.length - 1 && !segments[si + 1].dot) {
-        const sp = document.createElement('span');
-        sp.className = 'hscroll-space';
-        hPhrase.appendChild(sp);
+
+      // Focus event for keyboard tab access
+      panel.addEventListener('focusin', () => {
+        if (window.innerWidth > 1024) {
+          activatePanel(panel);
+        }
+      });
+
+      // Click/Tap event
+      panel.addEventListener('click', () => {
+        activatePanel(panel);
+      });
+
+      // Mouse move inside panel for glow and artwork parallax (only active panel)
+      panel.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 1024) return;
+        if (!panel.classList.contains('is-active')) return;
+
+        const rect = panel.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Move glow
+        const glow = panel.querySelector('[data-glow]');
+        if (glow) {
+          gsap.to(glow, {
+            left: x,
+            top: y,
+            duration: 0.1,
+            overwrite: 'auto'
+          });
+        }
+
+        // Move artwork parallax (dx, dy from -0.5 to 0.5)
+        const artwork = panel.querySelector('[data-artwork]');
+        if (artwork) {
+          const dx = (x / rect.width) - 0.5;
+          const dy = (y / rect.height) - 0.5;
+          gsap.to(artwork, {
+            x: dx * 25,
+            y: dy * 25,
+            duration: 0.6,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }
+      });
+
+      // Mouse leave reset glow and parallax
+      panel.addEventListener('mouseleave', () => {
+        const glow = panel.querySelector('[data-glow]');
+        if (glow) {
+          gsap.to(glow, { left: '50%', top: '50%', duration: 0.3, overwrite: 'auto' });
+        }
+        const artwork = panel.querySelector('[data-artwork]');
+        if (artwork) {
+          gsap.to(artwork, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+        }
+      });
+    });
+
+    // --- RESPONSIVE RESET ON RESIZE ---
+    let wasMobile = window.innerWidth <= 1024;
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth <= 1024;
+      if (isMobile !== wasMobile) {
+        wasMobile = isMobile;
+        // Reset inline flexGrow styles when shifting breakpoints
+        panels.forEach((p) => {
+          gsap.killTweensOf(p);
+          p.style.flexGrow = '';
+        });
+        
+        // Re-sync active states
+        const activePanel = document.querySelector('.rr-panel.is-active') || panels[0];
+        if (activePanel) {
+          activePanel.classList.remove('is-active'); // force reactivate
+          activatePanel(activePanel);
+        }
       }
     });
 
-    // Entrance + horizontal drive tween
-    const enterDist  = window.innerHeight * 0.8;
-    const pinnedDist = 3000;
+    // --- INITIALIZE DEFAULT STATE ---
+    const initialActive = document.querySelector('.rr-panel.is-active') || panels[0];
+    if (initialActive) {
+      if (window.innerWidth > 1024) {
+        // Set initial flexGrow values immediately without animation
+        panels.forEach((p) => {
+          const isTarget = p === initialActive;
+          gsap.set(p, { flexGrow: isTarget ? 2.2 : 0.6 });
+        });
+      }
+      initialActive.classList.add('is-active');
+      initialActive.setAttribute('aria-expanded', 'true');
+      initialActive.setAttribute('aria-selected', 'true');
+    }
 
-    const scrollTween = gsap.timeline({
+    // --- SCROLLTRIGGER ENTRANCE ANIMATION ---
+    gsap.from(['.rr-pillars-eyebrow', '.rr-pillars-heading', '.rr-pillars-subtext', '.rr-panel'], {
+      y: prefersReducedMotion ? 0 : 40,
+      opacity: 0,
+      duration: prefersReducedMotion ? 0.3 : 0.8,
+      stagger: prefersReducedMotion ? 0 : 0.15,
+      ease: 'power3.out',
       scrollTrigger: {
-        trigger: hSection,
-        start: 'top bottom',
-        end: () => `+=${enterDist + pinnedDist}`,
-        scrub: 1.2,
-        invalidateOnRefresh: true,
+        trigger: pillarsSection,
+        start: 'top 80%',
+        once: true
       }
-    });
-
-    scrollTween
-      .fromTo(hTrack,
-        { x: window.innerWidth },
-        { x: window.innerWidth * 0.45, ease: 'none', duration: enterDist }
-      )
-      .to(hTrack,
-        { x: () => -(hTrack.scrollWidth - window.innerWidth * 0.45), ease: 'none', duration: pinnedDist }
-      );
-
-    // Pin the section once it reaches the top
-    ScrollTrigger.create({
-      trigger: hSection,
-      start: 'top top',
-      end: () => `+=${pinnedDist}`,
-      pin: true,
-      pinSpacing: true,
-      invalidateOnRefresh: true,
-    });
-
-    // Per-letter sleek reveal driven by containerAnimation
-    hTrack.querySelectorAll('.hscroll-letter').forEach((letter, i) => {
-      gsap.from(letter, {
-        yPercent: 60,
-        opacity: 0,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: letter,
-          containerAnimation: scrollTween,
-          start: 'left 88%',
-          end: 'left 52%',
-          scrub: 1,
-        }
-      });
-    });
-
-    // Sticker clean reveal
-    hTrack.querySelectorAll('[data-hsticker]').forEach(sticker => {
-      gsap.from(sticker, {
-        scale: 0.4,
-        opacity: 0,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sticker,
-          containerAnimation: scrollTween,
-          start: 'left 85%',
-          end: 'left 40%',
-          scrub: 1,
-        }
-      });
     });
   })();
 

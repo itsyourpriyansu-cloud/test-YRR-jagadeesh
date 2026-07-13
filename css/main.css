@@ -573,82 +573,6 @@ header.scrolled .logo-img.logo-sticky {
   gap: 1rem;
 }
 
-/* ─── Horizontal Scroll Text Reveal ─── */
-.hscroll-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  background-color: var(--bg-site);
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-}
-
-.hscroll-track {
-  position: relative;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  will-change: transform;
-  padding: 0 6vw;
-}
-
-.hscroll-phrase {
-  font-family: var(--font-primary);
-  font-weight: 600;
-  font-size: clamp(3.5rem, 15vw, 11.5rem);
-  line-height: 1;
-  color: var(--color-primary);
-  letter-spacing: -0.03em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-}
-
-.hscroll-letter {
-  display: inline-block;
-  will-change: transform;
-  position: relative;
-}
-
-.hscroll-letter.hs-accent {
-  color: var(--color-green-light);
-}
-
-.hscroll-letter.hs-accent2 {
-  color: var(--color-blue);
-}
-
-.hscroll-space {
-  display: inline-block;
-  width: 0.28em;
-}
-
-.hscroll-dot {
-  display: inline-block;
-  color: var(--color-yellow);
-  font-size: 0.7em;
-  margin: 0 0.06em;
-}
-
-.hscroll-sticker {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(52px, 6vw, 90px);
-  height: clamp(52px, 6vw, 90px);
-  margin: 0 clamp(24px, 4vw, 60px);
-  color: var(--color-green-dark);
-  flex-shrink: 0;
-  will-change: transform;
-}
-
-.hscroll-sticker svg {
-  width: 100%;
-  height: 100%;
-}
 
 /* About Section */
 .about {
@@ -2883,7 +2807,7 @@ header.scrolled .btn-secondary:hover {
 
 .hero-video-title {
   font-family: var(--font-primary);
-  font-size: clamp(2.5rem, 4.2vw, 4.35rem);
+  font-size: clamp(2.5rem, 4.2vw, 3.35rem);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.12;
@@ -3400,13 +3324,10 @@ main > .hero {
   z-index: 2;
 }
 
-/* Section backgrounds transparent so birds show through as ambient texture.
-   Glass-cards, hero-stats-strip, footer, and CTA keep their own solid backgrounds. */
 .features,
 .gallery,
 .testimonials,
-.partners,
-.hscroll-section {
+.partners {
   background-color: transparent !important;
 }
 
@@ -4073,4 +3994,393 @@ h2.section-title.navy-reveal .title-fill {
     z-index: 10;
   }
 }
+
+/* ==========================================================================
+   BRAND PILLARS SECTION (.rr-pillars)
+   ========================================================================== */
+.rr-pillars {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  min-height: 680px; /* safety fallback */
+  display: flex;
+  align-items: center;
+  background-color: #0d1b2a; /* Deep Navy to match About */
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  --rr-accent-mint: #b9ffda;
+  --rr-accent-blue: #c8e6f5;
+}
+
+.rr-pillars > .container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  height: 100%;
+  max-height: 85vh; /* keeps content inside the viewport vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* Section Header */
+.rr-pillars-header {
+  max-width: 800px;
+  text-align: left;
+}
+
+.rr-pillars-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--rr-accent-mint);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.rr-pillars-heading {
+  font-family: var(--font-primary);
+  font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.rr-pillars-heading span {
+  color: var(--color-yellow);
+}
+
+.rr-pillars-subtext {
+  font-family: var(--font-secondary);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* Desktop Grid (Side-by-side vertical panels) */
+.rr-pillars-grid {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Individual Panel */
+.rr-panel {
+  flex: 1; /* GSAP will animate flex-grow */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.rr-panel:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.rr-panel:focus-visible {
+  outline: 2px solid var(--rr-accent-mint);
+  outline-offset: 4px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Glow Effect inside panel */
+.rr-panel-glow {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(185, 255, 218, 0.06) 0%, rgba(185, 255, 218, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.rr-panel.is-active .rr-panel-glow {
+  opacity: 1;
+}
+
+/* Panel Content wrapper */
+.rr-panel-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.rr-panel-content * {
+  pointer-events: auto;
+}
+
+.rr-panel-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.rr-panel-num {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rr-accent-mint);
+}
+
+.rr-panel:nth-child(2) .rr-panel-num {
+  color: var(--rr-accent-blue);
+}
+
+.rr-panel-label-small {
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.rr-panel.is-active .rr-panel-label-small {
+  opacity: 1;
+}
+
+.rr-panel-title {
+  font-family: var(--font-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.rr-panel.is-active .rr-panel-title {
+  color: var(--rr-accent-mint);
+}
+
+.rr-panel:nth-child(2).is-active .rr-panel-title {
+  color: var(--rr-accent-blue);
+}
+
+/* Body Content (fade/slide) */
+.rr-panel-body {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.rr-panel.is-active .rr-panel-body {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.rr-panel-desc {
+  font-family: var(--font-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* CTA Button */
+.rr-panel-bottom {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.rr-panel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--rr-accent-mint);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+}
+
+.rr-panel:nth-child(2) .rr-panel-cta {
+  color: var(--rr-accent-blue);
+}
+
+.rr-panel.is-active .rr-panel-cta {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
+}
+
+.rr-panel-cta svg {
+  transition: transform 0.3s ease;
+}
+
+.rr-panel-cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* Background architectural artwork */
+.rr-panel-artwork {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: clamp(160px, 14vw, 240px);
+  height: clamp(160px, 14vw, 240px);
+  pointer-events: none;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.35);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0.25;
+}
+
+.rr-panel.is-active .rr-panel-artwork {
+  opacity: 0.7;
+  color: var(--rr-accent-mint);
+}
+
+.rr-panel:nth-child(2).is-active .rr-panel-artwork {
+  color: var(--rr-accent-blue);
+}
+
+.rr-panel-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Responsive (Tablet & Mobile Breakpoints) */
+@media (max-width: 1024px) {
+  .rr-pillars {
+    height: auto;
+    min-height: auto;
+    display: block;
+    padding: 6rem 0;
+  }
+  
+  .rr-pillars > .container {
+    height: auto;
+    max-height: none;
+    display: block;
+    gap: 0;
+  }
+
+  .rr-pillars-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-height: auto;
+  }
+
+  .rr-panel {
+    flex: none !important; /* disable flex growth */
+    width: 100%;
+    padding: 2.25rem;
+    min-height: auto;
+    border-radius: 20px;
+  }
+
+  .rr-panel-meta {
+    margin-bottom: 0.5rem;
+  }
+
+  .rr-panel-label-small {
+    display: none;
+  }
+
+  .rr-panel-title {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .rr-panel.is-active .rr-panel-title {
+    margin-bottom: 1.25rem;
+  }
+
+  /* Accordion behavior for body */
+  .rr-panel-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: none !important;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+
+  .rr-panel.is-active .rr-panel-body {
+    max-height: 250px;
+    opacity: 1;
+  }
+
+  .rr-panel-bottom {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .rr-panel-cta {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: none !important;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+
+  .rr-panel.is-active .rr-panel-cta {
+    max-height: 40px;
+    opacity: 1;
+    margin-top: 1.5rem;
+  }
+
+  .rr-panel-artwork {
+    width: 120px;
+    height: 120px;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.15;
+  }
+
+  .rr-panel.is-active .rr-panel-artwork {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 480px) {
+  .rr-pillars {
+    padding: 5rem 0;
+  }
+
+  .rr-panel {
+    padding: 1.75rem;
+  }
+}
+
+/* Accessibility & Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .rr-panel,
+  .rr-panel-body,
+  .rr-panel-cta,
+  .rr-panel-artwork,
+  .rr-panel-glow {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
 
