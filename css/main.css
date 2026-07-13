@@ -4411,12 +4411,14 @@ h2.section-title.navy-reveal .title-fill {
   }
 
   /* ── Accordion: body collapses/expands ── */
+  /* No horizontal padding here — .rr-panel-content already sets the left/right
+     inset, so body text stays flush with the title above it. */
   .rr-panel-body {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transform: none !important;
-    padding: 0 1.5rem;
+    padding: 0;
     transition:
       max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
       opacity    0.4s ease,
@@ -4426,7 +4428,7 @@ h2.section-title.navy-reveal .title-fill {
   .rr-panel.is-active .rr-panel-body {
     max-height: 260px;
     opacity: 1;
-    padding: 0 1.5rem 0.25rem;
+    padding: 0 0 1rem;
   }
 
   .rr-panel-desc {
@@ -4436,7 +4438,7 @@ h2.section-title.navy-reveal .title-fill {
 
   /* ── Accordion: bottom / CTA collapses/expands ── */
   .rr-panel-bottom {
-    padding: 0 1.5rem;
+    padding: 0;
     margin-top: 0;
     max-height: 0;
     overflow: hidden;
@@ -4447,7 +4449,7 @@ h2.section-title.navy-reveal .title-fill {
 
   .rr-panel.is-active .rr-panel-bottom {
     max-height: 70px;
-    padding: 0.25rem 1.5rem 1.5rem;
+    padding: 0 0 1.5rem;
   }
 
   .rr-panel-cta {
@@ -4528,20 +4530,14 @@ h2.section-title.navy-reveal .title-fill {
     padding: 1.25rem 1.25rem 0;
   }
 
+  /* Body/CTA keep zero horizontal padding (set at ≤1024px) so they stay
+     aligned with the title's left margin — only the vertical rhythm changes here. */
   .rr-panel.is-active .rr-panel-body {
-    padding: 0 1.25rem 0.25rem;
+    padding: 0 0 0.9rem;
   }
 
   .rr-panel.is-active .rr-panel-bottom {
-    padding: 0.25rem 1.25rem 1.25rem;
-  }
-
-  .rr-panel-body {
-    padding: 0 1.25rem;
-  }
-
-  .rr-panel-bottom {
-    padding: 0 1.25rem;
+    padding: 0 0 1.25rem;
   }
 
   .rr-panel-artwork {
@@ -4598,28 +4594,30 @@ h2.section-title.navy-reveal .title-fill {
   }
 
   .rr-panel.is-active .rr-panel-title {
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.5rem;
   }
 
   .rr-panel-desc {
     font-size: 0.9rem;
   }
 
+  /* Zero horizontal padding — .rr-panel-content already provides the left/right
+     inset, keeping the quote and CTA flush with the title's left edge. */
   .rr-panel-body {
-    padding: 0 1.1rem;
+    padding: 0;
   }
 
   .rr-panel.is-active .rr-panel-body {
     max-height: 300px;
-    padding: 0 1.1rem 0.2rem;
+    padding: 0 0 0.85rem;
   }
 
   .rr-panel-bottom {
-    padding: 0 1.1rem;
+    padding: 0;
   }
 
   .rr-panel.is-active .rr-panel-bottom {
-    padding: 0.2rem 1.1rem 1.2rem;
+    padding: 0 0 1.1rem;
   }
 
   .rr-panel-cta {
