@@ -289,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const isMobile = window.innerWidth <= 1024;
       const prevActive = document.querySelector('.rr-panel.is-active');
 
       if (prevActive) {
@@ -306,19 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
       targetPanel.classList.add('is-active');
       targetPanel.setAttribute('aria-expanded', 'true');
       targetPanel.setAttribute('aria-selected', 'true');
-
-      if (!isMobile) {
-        // Desktop transition using flexGrow
-        panels.forEach((p) => {
-          const isTarget = p === targetPanel;
-          gsap.to(p, {
-            flexGrow: isTarget ? 2.2 : 0.6,
-            duration: prefersReducedMotion ? 0 : 0.7,
-            ease: 'power3.inOut',
-            overwrite: 'auto'
-          });
-        });
-      }
     }
 
     // --- INTERACTIVE EVENTS (DESKTOP HOVER / CLICK / FOCUS) ---
@@ -390,37 +376,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // --- RESPONSIVE RESET ON RESIZE ---
-    let wasMobile = window.innerWidth <= 1024;
-    window.addEventListener('resize', () => {
-      const isMobile = window.innerWidth <= 1024;
-      if (isMobile !== wasMobile) {
-        wasMobile = isMobile;
-        // Reset inline flexGrow styles when shifting breakpoints
-        panels.forEach((p) => {
-          gsap.killTweensOf(p);
-          p.style.flexGrow = '';
-        });
-        
-        // Re-sync active states
-        const activePanel = document.querySelector('.rr-panel.is-active') || panels[0];
-        if (activePanel) {
-          activePanel.classList.remove('is-active'); // force reactivate
-          activatePanel(activePanel);
-        }
-      }
-    });
-
     // --- INITIALIZE DEFAULT STATE ---
     const initialActive = document.querySelector('.rr-panel.is-active') || panels[0];
     if (initialActive) {
-      if (window.innerWidth > 1024) {
-        // Set initial flexGrow values immediately without animation
-        panels.forEach((p) => {
-          const isTarget = p === initialActive;
-          gsap.set(p, { flexGrow: isTarget ? 2.2 : 0.6 });
-        });
-      }
       initialActive.classList.add('is-active');
       initialActive.setAttribute('aria-expanded', 'true');
       initialActive.setAttribute('aria-selected', 'true');

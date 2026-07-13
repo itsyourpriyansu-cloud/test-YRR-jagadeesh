@@ -2076,25 +2076,60 @@ iframe.sg-img {
 .cf-form-panel {
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid rgba(10, 54, 92, 0.08);
+  border-radius: 24px;
+  padding: 2.75rem;
+  box-shadow: 0 30px 60px -25px rgba(10, 54, 92, 0.18);
 }
 
 .cf-submit-btn {
+  position: relative;
   width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.9rem 1.75rem;
+  margin-top: 0.75rem;
+  padding: 1rem 1.75rem;
   background-color: #10241c;
   color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: var(--font-primary);
   font-weight: 700;
   font-size: 0.95rem;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 12px 24px -10px rgba(16, 36, 28, 0.45);
+  transition: var(--transition-fast), transform 0.25s ease;
 }
 
 .cf-submit-btn:hover {
   background-color: #193a2c;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -10px rgba(16, 36, 28, 0.5);
+}
+
+.cf-submit-btn:active {
+  transform: translateY(0);
+}
+
+.cf-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cf-submit-btn .btn-arrow {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  transition: transform 0.25s ease;
+}
+
+.cf-submit-btn:hover .btn-arrow {
+  transform: translateX(3px);
 }
 
 .form-group {
@@ -2102,7 +2137,7 @@ iframe.sg-img {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.4rem;
 }
 
 .form-label {
@@ -2114,15 +2149,20 @@ iframe.sg-img {
 
 .form-input {
   width: 100%;
-  padding: 0.85rem 1rem;
-  background-color: #eeece7;
-  border: 1.5px solid transparent;
-  border-radius: 10px;
+  padding: 0.95rem 1.1rem;
+  background-color: #f6f5f1;
+  border: 1.5px solid #e7e5df;
+  border-radius: 12px;
   font-family: var(--font-secondary);
   font-size: 0.9rem;
   color: var(--color-primary);
   outline: none;
-  transition: var(--transition-fast);
+  transition: var(--transition-fast), box-shadow 0.25s ease;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .form-input::placeholder {
@@ -2130,14 +2170,23 @@ iframe.sg-img {
   opacity: 0.8;
 }
 
+.form-input:hover {
+  border-color: rgba(10, 54, 92, 0.25);
+}
+
 .form-input:focus {
   border-color: var(--color-primary);
   background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(10, 54, 92, 0.08);
 }
 
 /* Client-side validation status styles */
 .form-group.error .form-input {
   border-color: #ef4444;
+}
+
+.form-group.error .form-input:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
 }
 
 .form-group.error .form-label {
@@ -2157,6 +2206,37 @@ iframe.sg-img {
 
 .form-group.success .form-input {
   border-color: var(--color-green-light);
+}
+
+.form-group.success .form-input:focus {
+  box-shadow: 0 0 0 4px rgba(75, 183, 73, 0.1);
+}
+
+/* Google reCAPTCHA container */
+.cf-captcha-group {
+  margin-bottom: 1.4rem;
+  overflow-x: auto;
+}
+
+.cf-captcha-group .g-recaptcha {
+  display: inline-block;
+}
+
+.cf-captcha-group.error .form-error-msg {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.cf-form-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.cf-form-note.hidden,
+.form-error-msg.hidden {
+  display: none;
 }
 
 /* Footer (dark, inside the combined section) */
@@ -2272,6 +2352,33 @@ iframe.sg-img {
 
   .cf-footer-cols {
     gap: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cf-contact-panel {
+    padding: 3rem 0;
+  }
+
+  .cf-form-panel {
+    padding: 1.75rem;
+    border-radius: 18px;
+  }
+
+  .cf-heading {
+    margin-bottom: 1.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .cf-form-panel {
+    padding: 1.25rem;
+  }
+
+  .cf-captcha-group {
+    transform: scale(0.85);
+    transform-origin: left top;
+    margin-bottom: calc(1.4rem - 25px);
   }
 }
 
@@ -4058,10 +4165,10 @@ h2.section-title.navy-reveal .title-fill {
 .rr-pillars {
   position: relative;
   overflow: hidden;
-  height: 100vh;
-  min-height: 680px; /* safety fallback */
+  min-height: 100vh; /* section grows to fit fixed-height cards instead of clipping them */
   display: flex;
   align-items: center;
+  padding: 4rem 0;
   background-color: #0d1b2a; /* Deep Navy to match About */
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -4075,11 +4182,9 @@ h2.section-title.navy-reveal .title-fill {
   margin: 0 auto;
   padding: 0 2rem;
   width: 100%;
-  height: 100%;
-  max-height: 85vh; /* keeps content inside the viewport vertically */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -4126,13 +4231,12 @@ h2.section-title.navy-reveal .title-fill {
   display: flex;
   gap: 1.5rem;
   width: 100%;
-  flex: 1;
-  min-height: 0;
 }
 
 /* Individual Panel */
 .rr-panel {
-  flex: 1; /* GSAP will animate flex-grow */
+  flex: 1 1 0; /* fixed equal width for all panels */
+  height: 500px; /* fixed height, independent of viewport/zoom so content never clips */
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
@@ -4669,6 +4773,7 @@ h2.section-title.navy-reveal .title-fill {
   .rr-panel {
     flex: none !important;
     width: 100%;
+    height: auto; /* override desktop's fixed 560px so the accordion sizes to its content */
     min-height: auto;
     border-radius: 16px;
     padding: 0;                         /* managed by inner elements */
@@ -4814,18 +4919,18 @@ h2.section-title.navy-reveal .title-fill {
     max-height: 40px;
   }
 
-  /* Artwork – small, tucked in corner, barely visible */
+  /* Artwork – small, tucked in corner */
   .rr-panel-artwork {
     width: 90px;
     height: 90px;
     bottom: 8px;
     right: 8px;
-    opacity: 0.1;
-    color: rgba(255,255,255,0.3);
+    opacity: 0.22;
+    color: rgba(255,255,255,0.45);
   }
 
   .rr-panel.is-active .rr-panel-artwork {
-    opacity: 0.2;
+    opacity: 0.4;
     color: var(--color-green-light);
   }
 
@@ -4968,11 +5073,11 @@ h2.section-title.navy-reveal .title-fill {
   .rr-panel-artwork {
     width: 60px;
     height: 60px;
-    opacity: 0.08;
+    opacity: 0.18;
   }
 
   .rr-panel.is-active .rr-panel-artwork {
-    opacity: 0.15;
+    opacity: 0.32;
   }
 }
 

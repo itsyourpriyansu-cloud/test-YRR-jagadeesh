@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const inboxOverlay = document.getElementById('inbox-overlay');
   const inboxClose = document.getElementById('inbox-close');
   const simulatedMailbox = document.getElementById('simulated-mailbox');
+  const submitBtn = document.getElementById('cf-submit-btn');
+  const submitErrorMsg = document.getElementById('form-submit-error');
 
   // Input elements event listeners for real-time validation
   nameInput.addEventListener('blur', () => validateField(nameInput, checkName));
@@ -93,19 +95,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const isPhoneValid = validateField(phoneInput, checkPhone);
     const isMessageValid = validateField(messageInput, checkMessage);
 
-    if (isNameValid && isEmailValid && isPhoneValid && isMessageValid) {
+    const captchaGroup = document.querySelector('.cf-captcha-group');
+    const captchaResponse = (typeof grecaptcha !== 'undefined') ? grecaptcha.getResponse() : '';
+    const isCaptchaValid = captchaResponse.length > 0;
+
+    if (captchaGroup) {
+      captchaGroup.classList.toggle('error', !isCaptchaValid);
+    }
+
+    if (isNameValid && isEmailValid && isPhoneValid && isMessageValid && isCaptchaValid) {
+      submitErrorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+
       const clientName = nameInput.value.trim();
       const clientEmail = emailInput.value.trim();
-      
-      // Submit success: show overlay & generate simulated email confirmation toast
-      showEmailConfirmation(clientName, clientEmail);
-      
-      // Reset form states
-      contactForm.reset();
-      formGroups.forEach(g => {
-        g.classList.remove('success');
-        g.classList.remove('error');
-      });
+      const formData = new FormData(contactForm);
+      formData.set('g-recaptcha-response', captchaResponse);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData
+      })
+        .then((response) => response.json().catch(() => ({ success: response.ok })))
+        .then((data) => {
+          submitBtn.disabled = false;
+
+          if (data.success) {
+            // Submit success: show overlay & generate simulated email confirmation toast
+            showEmailConfirmation(clientName, clientEmail);
+
+            // Reset form states
+            contactForm.reset();
+            formGroups.forEach(g => {
+              g.classList.remove('success');
+              g.classList.remove('error');
+            });
+            if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          } else {
+            submitErrorMsg.textContent = data.message || 'Something went wrong while sending your message. Please try again.';
+            submitErrorMsg.classList.remove('hidden');
+          }
+        })
+        .catch(() => {
+          submitBtn.disabled = false;
+          submitErrorMsg.textContent = 'Unable to reach the server. Please try again later.';
+          submitErrorMsg.classList.remove('hidden');
+        });
     }
   });
 

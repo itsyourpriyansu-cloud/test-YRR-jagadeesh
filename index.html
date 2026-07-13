@@ -1151,32 +1151,46 @@
 
             <!-- Contact Form -->
             <div class="cf-form-panel">
-              <form id="contact-form" novalidate>
+              <form id="contact-form" action="contact_validate.php" method="POST" novalidate>
                 <div class="form-group">
                   <label for="form-name" class="form-label">Name</label>
-                  <input type="text" id="form-name" class="form-input" placeholder="John Doe" required>
+                  <input type="text" id="form-name" name="name" class="form-input" placeholder="John Doe" required>
                   <span class="form-error-msg">Please enter your name.</span>
                 </div>
 
                 <div class="form-group">
                   <label for="form-email" class="form-label">E-mail</label>
-                  <input type="email" id="form-email" class="form-input" placeholder="johndoe@gmail.com" required>
+                  <input type="email" id="form-email" name="email" class="form-input" placeholder="johndoe@gmail.com" required>
                   <span class="form-error-msg">Please enter a valid email address.</span>
                 </div>
 
                 <div class="form-group">
                   <label for="form-phone" class="form-label">Phone (optional)</label>
-                  <input type="tel" id="form-phone" class="form-input" placeholder="+91 98450 12345">
+                  <input type="tel" id="form-phone" name="phone" class="form-input" placeholder="+91 98450 12345">
                   <span class="form-error-msg">Please enter your phone number.</span>
                 </div>
 
                 <div class="form-group">
                   <label for="form-message" class="form-label">Message</label>
-                  <textarea id="form-message" class="form-input" rows="5" placeholder="Tell us about your plot size and location preference..." required></textarea>
+                  <textarea id="form-message" name="message" class="form-input" rows="5" placeholder="Tell us about your plot size and location preference..." required></textarea>
                   <span class="form-error-msg">Please write a brief message.</span>
                 </div>
 
-                <button type="submit" class="cf-submit-btn">Submit</button>
+                <!-- Google reCAPTCHA — replace data-sitekey with your own site key -->
+                <div class="cf-captcha-group">
+                  <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+                  <span class="form-error-msg" id="captcha-error-msg">Please verify that you're not a robot.</span>
+                </div>
+
+                <span class="cf-form-note hidden" id="form-submit-error">Something went wrong while sending your message. Please try again.</span>
+
+                <button type="submit" class="cf-submit-btn" id="cf-submit-btn">
+                  <span class="btn-label">Submit</span>
+                  <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
               </form>
             </div>
           </div>
@@ -1258,6 +1272,9 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+
+  <!-- Google reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <!-- Page Scripts -->
   <script src="js/main.js?v=101"></script>
