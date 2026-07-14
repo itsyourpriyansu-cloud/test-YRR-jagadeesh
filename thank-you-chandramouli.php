@@ -23,8 +23,45 @@
   <link rel="stylesheet" href="css/main.css?v=85">
 
   <style>
+    /* This page has no dark hero image behind the header (unlike the homepage),
+       so force the light-background header variant instead of the hero's
+       white-on-transparent one, regardless of scroll state. */
+    header .nav-wrapper {
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(229, 231, 235, 0.7);
+      border-radius: 9999px;
+      margin: 0 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    header:not(.scrolled) .nav-item {
+      color: var(--color-primary);
+    }
+
+    header:not(.scrolled) .mobile-toggle span {
+      background-color: var(--color-primary);
+    }
+
+    header:not(.scrolled) .btn-secondary {
+      background-color: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--color-primary);
+      backdrop-filter: none;
+    }
+
+    header:not(.scrolled) .logo-img.logo-normal {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    header:not(.scrolled) .logo-img.logo-sticky {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .thankyou-section {
-      min-height: 90vh;
+      min-height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -79,9 +116,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Vanta Birds ambient background — sits behind everything -->
-  <div id="vanta-bg"></div>
 
   <!-- Header Navigation -->
   <header>
@@ -189,7 +223,7 @@
 
           <div class="cf-footer-bottom">
             <span>&copy; 2026 Yoshitha Inc. All rights reserved</span>
-             <p>Designed by <a href="https://www.envizonstudio.com/" class="cf-footer-credit">Envizon Studio</a></p>
+             <p>Designed by <a href="https://www.envizonstudio.com/" class="cf-footer-credit" style="color:red;">Envizon Studio</a></p>
           </div>
         </div>
       </footer>
@@ -204,50 +238,6 @@
 
   <!-- Page Scripts -->
   <script src="js/main.js?v=101"></script>
-
-  <!-- Three.js r134 (required by Vanta) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <!-- Vanta Birds -->
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
-
-  <!-- Vanta Birds Initialization -->
-  <script>
-    (function initVantaBirds() {
-      if (typeof VANTA === 'undefined' || typeof THREE === 'undefined') return;
-
-      VANTA.BIRDS({
-        el: '#vanta-bg',
-        THREE: THREE,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200,
-        minWidth: 200,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        backgroundColor: 0xffffff,
-        color1: 0xb9ffda,
-        color2: 0xc8e6f5,
-        wingSpan: 24,
-        quantity: 4,
-        speedLimit: 4,
-        separation: 80,
-        alignment: 50,
-        cohesion: 50
-      });
-
-      const vantaEl = document.getElementById('vanta-bg');
-      if (vantaEl) {
-        document.addEventListener('mousemove', function(e) {
-          vantaEl.dispatchEvent(new MouseEvent('mousemove', {
-            clientX: e.clientX,
-            clientY: e.clientY,
-            bubbles: false
-          }));
-        }, { passive: true });
-      }
-    })();
-  </script>
 
 </body>
 </html>
