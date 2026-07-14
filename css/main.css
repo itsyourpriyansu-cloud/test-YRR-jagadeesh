@@ -2363,15 +2363,26 @@ textarea.form-input {
 
   .cf-footer-row {
     flex-direction: column;
+    align-items: center;
   }
 
   .cf-footer-cols {
     gap: 2.5rem;
+            justify-content: center;
   }
 
   .cf-footer-bottom {
     flex-wrap: wrap;
+    justify-content: center;
   }
+
+.cf-footer-brand {
+  
+    text-align: center;
+    align-items: center;
+}
+
+
 }
 
 @media (max-width: 600px) {
@@ -5111,4 +5122,14 @@ h2.section-title.navy-reveal .title-fill {
     transition: none !important;
     transform: none !important;
   }
+}
+
+
+
+
+.stats-card-icon svg{
+    width:24px;
+    height:24px;
+    stroke:#0B3A69;
+    stroke-width:2;
 }
