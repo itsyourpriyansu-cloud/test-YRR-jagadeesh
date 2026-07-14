@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wordEl = document.getElementById('changing-word');
     if (!wordEl) return;
 
-    const words = ['New Regional Ring Road', 'Bangalore Highway Chinchod', 'Near Rajiv Gandhi Airport'];
+    const words = ['Near Regional Ring Road', 'Near Bangalore Highway ', 'Near Rajiv Gandhi Airport'];
     let idx = 0;
 
     // Set initial state (visible, no filter)
