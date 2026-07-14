@@ -5133,3 +5133,10 @@ h2.section-title.navy-reveal .title-fill {
     stroke:#0B3A69;
     stroke-width:2;
 }
+
+.whatsapp-float{
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  z-index: 1000;
+} 
