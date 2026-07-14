@@ -27,7 +27,7 @@ $formEmail = 'contactforum@yoshithainfra.in';
 // $emailCc = 'keshanth169@gmail.com';
 //$emailCc = 'shiva.krishna22@gmail.com';
 //$emailBcc = 'sathish@gigaqwal.com';
-$toEmail = 'tharunkola450@gmail.com';
+$toEmail = 'tharunkola450@gmail.com'; //yoshitha.chandramouli@gmail.com
 $statusMsg = 'An error occurred. Please try again.';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
