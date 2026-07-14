@@ -1766,7 +1766,7 @@ iframe.sg-img {
 .tm-card-quote {
   font-family: var(--font-primary);
   font-size: clamp(1rem, 1.4vw, 1.2rem);
-  font-weight: 600;
+  font-weight: 400;
   color: #ffffff;
   line-height: 1.5;
   letter-spacing: -0.01em;
@@ -2335,9 +2335,24 @@ textarea.form-input {
 }
 
 .cf-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding-top: 1.5rem;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.cf-footer-credit {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: underline white;
+ 
+  transition: var(--transition-fast);
+}
+
+.cf-footer-credit:hover {
+  color: var(--color-yellow);
 }
 
 @media (max-width: 992px) {
@@ -2352,6 +2367,10 @@ textarea.form-input {
 
   .cf-footer-cols {
     gap: 2.5rem;
+  }
+
+  .cf-footer-bottom {
+    flex-wrap: wrap;
   }
 }
 
@@ -4318,7 +4337,7 @@ h2.section-title.navy-reveal .title-fill {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.4);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.4s ease;
 }
 
@@ -4345,8 +4364,8 @@ h2.section-title.navy-reveal .title-fill {
 
 /* Body Content (fade/slide) */
 .rr-panel-body {
-  opacity: 0;
-  transform: translateY(15px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -4377,8 +4396,8 @@ h2.section-title.navy-reveal .title-fill {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--rr-accent-green);
-  opacity: 0;
-  transform: translateY(10px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
 }
 
