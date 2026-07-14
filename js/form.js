@@ -216,14 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2200);
   }
 
-  // Dismiss overlay
+  // Dismiss overlay — continue on to the real thank-you page
   inboxClose.addEventListener('click', () => {
-    inboxOverlay.classList.remove('active');
+    window.location.href = 'thank-you-chandramouli.php';
   });
 
   inboxOverlay.addEventListener('click', (e) => {
     if (e.target === inboxOverlay) {
-      inboxOverlay.classList.remove('active');
+      window.location.href = 'thank-you-chandramouli.php';
     }
   });
 });
