@@ -485,6 +485,21 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
+    // Lazy-load a slide's YouTube video (only when it becomes active)
+    function loadSlideVideo(iframe) {
+      if (!iframe) return;
+      const src = iframe.dataset.src;
+      if (src && iframe.getAttribute('src') !== src) {
+        iframe.src = src;
+      }
+    }
+
+    // Unload a slide's YouTube video to stop playback and free resources
+    function unloadSlideVideo(iframe) {
+      if (!iframe) return;
+      iframe.removeAttribute('src');
+    }
+
     // Function to run transition
     function goToSlide(nextIndex) {
       if (isTransitioning || nextIndex === currentIndex) return;
@@ -517,12 +532,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.out',
         onComplete: () => {
           currentSlide.classList.remove('active');
+          unloadSlideVideo(currentEl.img);
           isTransitioning = false;
         }
       });
 
       // 3. Animate in next slide
       nextSlide.classList.add('active');
+      loadSlideVideo(nextEl.img);
       gsap.to(nextSlide, {
         opacity: 1,
         duration: 0.8,
@@ -1236,25 +1253,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // 14. Amenities Gallery Lightbox
   (function () {
     const AMENITIES = [
-      { title: 'Avenue Plantations', desc: 'Tree-lined avenues that create a refreshing, green environment for peaceful everyday living.', img: 'Assets/Amenities/avenue-plantation.jpg' },
-      { title: 'Central Park with Water Body', desc: 'A beautifully designed central park with a serene water feature, offering the perfect space to relax and reconnect with nature.', img: 'Assets/Amenities/central-park.jpg' },
-      { title: "Kid's Play Zone", desc: 'A safe and engaging play area where children can learn, explore, and enjoy endless fun.', img: 'Assets/Amenities/children-playarea.jpg' },
-      { title: 'Open Theatre', desc: 'An open-air gathering space designed for cultural events, celebrations, and memorable community experiences.', img: 'Assets/Amenities/open-theatre.jpg' },
-      { title: 'Senior Citizen Park', desc: 'A peaceful and comfortable green space designed exclusively for relaxation, wellness, and social interaction.', img: 'Assets/Amenities/senior-citizens-park.jpg' },
-      { title: 'Sports Zone', desc: 'Dedicated sports facilities that encourage an active, healthy, and energetic lifestyle for all age groups.', img: 'Assets/Amenities/sports.jpg' },
-      { title: 'Private Swimming Pool', desc: 'An exclusive swimming pool offering a refreshing escape and a premium leisure experience for residents.', img: 'Assets/Amenities/swimming-pool.jpg' },
-      { title: 'Site View Point', desc: 'Enjoy panoramic views of the community from a thoughtfully designed viewpoint that showcases the beauty of Real Rise.', img: 'Assets/Amenities/community-aerial-view.jpg' },
-      { title: 'Herbal Garden', desc: 'A thoughtfully curated herbal garden that promotes natural wellness in a refreshing green setting.', img: 'Assets/Amenities/garden-spot.jpg' },
-      { title: 'Recreation Zone', desc: 'A vibrant recreational space where families can unwind, connect, and create lasting memories together.', img: 'Assets/Amenities/chill-out-spot.jpg' },
-      { title: 'Project Junction', desc: 'The heart of the community, bringing together landscaped spaces, pathways, and lifestyle amenities for everyday convenience.', img: 'Assets/Amenities/sculpture-fountain-plaza.jpg' },
+      { title: 'Avenue Plantations', desc: 'Tree-lined avenues that create a refreshing, green environment for peaceful everyday living.', img: 'Assets/Amenities/avenue-plantation.webp' },
+      { title: 'Central Park with Water Body', desc: 'A beautifully designed central park with a serene water feature, offering the perfect space to relax and reconnect with nature.', img: 'Assets/Amenities/central-park.webp' },
+      { title: "Kid's Play Zone", desc: 'A safe and engaging play area where children can learn, explore, and enjoy endless fun.', img: 'Assets/Amenities/children-playarea.webp' },
+      { title: 'Open Theatre', desc: 'An open-air gathering space designed for cultural events, celebrations, and memorable community experiences.', img: 'Assets/Amenities/open-theatre.webp' },
+      { title: 'Senior Citizen Park', desc: 'A peaceful and comfortable green space designed exclusively for relaxation, wellness, and social interaction.', img: 'Assets/Amenities/senior-citizens-park.webp' },
+      { title: 'Sports Zone', desc: 'Dedicated sports facilities that encourage an active, healthy, and energetic lifestyle for all age groups.', img: 'Assets/Amenities/sports.webp' },
+      { title: 'Private Swimming Pool', desc: 'An exclusive swimming pool offering a refreshing escape and a premium leisure experience for residents.', img: 'Assets/Amenities/swimming-pool.webp' },
+      { title: 'Site View Point', desc: 'Enjoy panoramic views of the community from a thoughtfully designed viewpoint that showcases the beauty of Real Rise.', img: 'Assets/Amenities/community-aerial-view.webp' },
+      { title: 'Herbal Garden', desc: 'A thoughtfully curated herbal garden that promotes natural wellness in a refreshing green setting.', img: 'Assets/Amenities/garden-spot.webp' },
+      { title: 'Recreation Zone', desc: 'A vibrant recreational space where families can unwind, connect, and create lasting memories together.', img: 'Assets/Amenities/chill-out-spot.webp' },
+      { title: 'Project Junction', desc: 'The heart of the community, bringing together landscaped spaces, pathways, and lifestyle amenities for everyday convenience.', img: 'Assets/Amenities/sculpture-fountain-plaza.webp' },
       // Bonus gallery shots — no dedicated card, but browsable from any card's lightbox
-      { title: 'Jogging Track', desc: 'A palm-fringed track that turns every run into a scenic escape, right at your doorstep.', img: 'Assets/Amenities/roads.jpg' },
-      { title: 'Blossom Bridge', desc: 'A charming timber bridge weaving through fragrant gardens, made for slow evening walks.', img: 'Assets/Amenities/blossom-bridge.jpg' },
-      { title: 'Entrance Plaza', desc: 'A striking gateway of architecture and light, the first impression of a life well-designed.', img: 'Assets/Amenities/entrance-plaza.jpg' },
-      { title: 'Bougainvillea Avenue', desc: 'Blossom-lined boulevards that turn every drive home into a scenic one.', img: 'Assets/Amenities/bougainvillea-avenue.jpg' },
-      { title: 'Poolside Deck', desc: 'Sun loungers and shaded corners set around the water, made for lazy weekend afternoons.', img: 'Assets/Amenities/poolside-deck.jpg' },
-      { title: 'Garden Sculpture at Dusk', desc: 'Illuminated art and manicured lawns that turn evening walks into something memorable.', img: 'Assets/Amenities/garden-sculpture-dusk.jpg' },
-      { title: 'Palm Fountain Walkway', desc: 'A shaded, palm-canopied path leading to a tranquil fountain courtyard.', img: 'Assets/Amenities/palm-fountain-walkway.jpg' }
+      { title: 'Jogging Track', desc: 'A palm-fringed track that turns every run into a scenic escape, right at your doorstep.', img: 'Assets/Amenities/roads.webp' },
+      { title: 'Blossom Bridge', desc: 'A charming timber bridge weaving through fragrant gardens, made for slow evening walks.', img: 'Assets/Amenities/blossom-bridge.webp' },
+      { title: 'Entrance Plaza', desc: 'A striking gateway of architecture and light, the first impression of a life well-designed.', img: 'Assets/Amenities/entrance-plaza.webp' },
+      { title: 'Bougainvillea Avenue', desc: 'Blossom-lined boulevards that turn every drive home into a scenic one.', img: 'Assets/Amenities/bougainvillea-avenue.webp' },
+      { title: 'Poolside Deck', desc: 'Sun loungers and shaded corners set around the water, made for lazy weekend afternoons.', img: 'Assets/Amenities/poolside-deck.webp' },
+      { title: 'Garden Sculpture at Dusk', desc: 'Illuminated art and manicured lawns that turn evening walks into something memorable.', img: 'Assets/Amenities/garden-sculpture-dusk.webp' },
+      { title: 'Palm Fountain Walkway', desc: 'A shaded, palm-canopied path leading to a tranquil fountain courtyard.', img: 'Assets/Amenities/palm-fountain-walkway.webp' }
     ];
 
     const cards      = document.querySelectorAll('.si-card[data-amenity-index]');

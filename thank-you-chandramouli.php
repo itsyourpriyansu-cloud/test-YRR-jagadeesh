@@ -122,7 +122,7 @@
     <div class="nav-wrapper">
       <a href="index.html" class="logo-link" aria-label="Yoshitha's Real Rise Home">
         <img src="Assets/Img/logo-white 1.svg" alt="Yoshitha's Real Rise Logo" class="logo-img logo-normal">
-        <img src="Assets/Img/Lofo-infra.png" alt="Yoshitha's Real Rise Logo" class="logo-img logo-sticky">
+        <img src="Assets/Img/Lofo-infra.webp" alt="Yoshitha's Real Rise Logo" class="logo-img logo-sticky">
       </a>
 
       <!-- Desktop Nav links -->
