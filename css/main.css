@@ -604,7 +604,7 @@ header.scrolled .logo-img.logo-sticky {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 2rem 4rem;
   align-items: start;
 }
 
@@ -681,7 +681,7 @@ header.scrolled .logo-img.logo-sticky {
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem 2rem;
   /* margin-top: 2rem; */
-  padding-top: 2.5rem;
+  padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -695,15 +695,15 @@ header.scrolled .logo-img.logo-sticky {
 }
 
 .about-point-card h4 {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #ffffff;
-  margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .about-point-card p {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.5;
 }
@@ -2947,7 +2947,8 @@ textarea.form-input {
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    row-gap: 2rem;
+    column-gap: 0;
   }
 
   .about-content {
@@ -2963,7 +2964,7 @@ textarea.form-input {
     grid-row: auto;
     justify-self: stretch;
     max-width: none;
-    margin: 1rem 0;
+    margin: 0;
   }
 
   .about-points {
@@ -4608,7 +4609,7 @@ h2.section-title.navy-reveal .title-fill {
   min-height: 100vh; /* section grows to fit fixed-height cards instead of clipping them */
   display: flex;
   align-items: center;
-  padding: 4rem 0;
+  padding: 6rem 0;
   background-color: #0d1b2a; /* Deep Navy to match About */
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
