@@ -641,13 +641,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // 10b. Location Overview Accordion (single-open, with image crossfade)
+  // 10b. Location Overview Accordion (single-open)
   (function () {
     const accordion = document.getElementById('lo-accordion');
     if (!accordion) return;
 
     const items = accordion.querySelectorAll('.lo-item');
-    const images = document.querySelectorAll('.lo-visual-img');
 
     function openItem(item, animate) {
       const content = item.querySelector('.lo-item-content');
@@ -698,11 +697,6 @@ document.addEventListener('DOMContentLoaded', () => {
           closeItem(item);
         } else {
           openItem(item, true);
-
-          const targetIndex = item.dataset.loIndex;
-          images.forEach((img) => {
-            img.classList.toggle('is-active', img.dataset.loImage === targetIndex);
-          });
         }
       });
     });
