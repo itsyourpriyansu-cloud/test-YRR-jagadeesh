@@ -3968,6 +3968,8 @@ header.scrolled .btn-secondary:hover {
   .stats-card {
     padding: 2rem 1.75rem;
     border-radius: 16px;
+    align-items: center;
+    text-align: center;
   }
 
   .stats-card-icon {
@@ -3984,6 +3986,7 @@ header.scrolled .btn-secondary:hover {
   .stats-card-number {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    justify-content: center;
   }
 
   .stats-card-label {
