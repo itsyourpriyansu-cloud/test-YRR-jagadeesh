@@ -462,12 +462,33 @@ document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const sliderWrapper = document.getElementById('sg-slider-wrapper');
     const slides = document.querySelectorAll('.sg-slide');
+    
+    if (!sliderWrapper || slides.length === 0) return;
+
+    // If there is only one slide, disable transitions and controls, just loop smooth zoom
+    if (slides.length === 1) {
+      const slide = slides[0];
+      const img = slide.querySelector('.sg-img');
+      if (img) {
+        const src = img.dataset.src;
+        if (src && img.getAttribute('src') !== src) {
+          img.src = src;
+        }
+        gsap.to(img, {
+          scale: 1.05,
+          duration: 10,
+          yoyo: true,
+          repeat: -1,
+          ease: 'power1.inOut'
+        });
+      }
+      return;
+    }
+
     const prevBtn = document.getElementById('sg-prev-btn');
     const nextBtn = document.getElementById('sg-next-btn');
     const progressBar = document.getElementById('sg-progress-bar');
     
-    if (!sliderWrapper || slides.length === 0) return;
-
     let currentIndex = 0;
     const totalSlides = slides.length;
     let progressTween = null;
