@@ -8,10 +8,10 @@
 
 .floating-contact-widget {
   position: fixed;
-  right: 24px;
+  right: var(--fcw-right, 24px);
   /* --fcw-bottom is set by JS when the third-party chat bubble is detected,
      so this widget stacks 12px above it instead of overlapping. */
-  bottom: var(--fcw-bottom, 170px);
+  bottom: var(--fcw-bottom, 100px);
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -137,11 +137,23 @@
   background: #1877f2;
 }
 
+.floating-contact-widget__link--twitter {
+  background: #000000;
+}
+
 .floating-contact-widget__link--instagram {
   background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
 }
 
-/* ─── Open state: reveal + stagger the four buttons ─── */
+.floating-contact-widget__link--linkedin {
+  background: #0077b5;
+}
+
+.floating-contact-widget__link--youtube {
+  background: #ff0000;
+}
+
+/* ─── Open state: reveal + stagger the seven buttons ─── */
 .floating-contact-widget.is-open .floating-contact-widget__link {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -152,13 +164,19 @@
 .floating-contact-widget.is-open .floating-contact-widget__item:nth-child(2) .floating-contact-widget__link { transition-delay: 115ms; }
 .floating-contact-widget.is-open .floating-contact-widget__item:nth-child(3) .floating-contact-widget__link { transition-delay: 170ms; }
 .floating-contact-widget.is-open .floating-contact-widget__item:nth-child(4) .floating-contact-widget__link { transition-delay: 225ms; }
+.floating-contact-widget.is-open .floating-contact-widget__item:nth-child(5) .floating-contact-widget__link { transition-delay: 280ms; }
+.floating-contact-widget.is-open .floating-contact-widget__item:nth-child(6) .floating-contact-widget__link { transition-delay: 335ms; }
+.floating-contact-widget.is-open .floating-contact-widget__item:nth-child(7) .floating-contact-widget__link { transition-delay: 390ms; }
 
 /* On close, collapse fastest-first (top item first) so the stack folds
    down toward the toggle instead of all fading at once. */
-.floating-contact-widget__item:nth-child(4) .floating-contact-widget__link { transition-delay: 0ms; }
-.floating-contact-widget__item:nth-child(3) .floating-contact-widget__link { transition-delay: 30ms; }
-.floating-contact-widget__item:nth-child(2) .floating-contact-widget__link { transition-delay: 60ms; }
-.floating-contact-widget__item:nth-child(1) .floating-contact-widget__link { transition-delay: 90ms; }
+.floating-contact-widget__item:nth-child(7) .floating-contact-widget__link { transition-delay: 0ms; }
+.floating-contact-widget__item:nth-child(6) .floating-contact-widget__link { transition-delay: 30ms; }
+.floating-contact-widget__item:nth-child(5) .floating-contact-widget__link { transition-delay: 60ms; }
+.floating-contact-widget__item:nth-child(4) .floating-contact-widget__link { transition-delay: 90ms; }
+.floating-contact-widget__item:nth-child(3) .floating-contact-widget__link { transition-delay: 120ms; }
+.floating-contact-widget__item:nth-child(2) .floating-contact-widget__link { transition-delay: 150ms; }
+.floating-contact-widget__item:nth-child(1) .floating-contact-widget__link { transition-delay: 180ms; }
 
 /* ─── Bottom row: "Hide" label + main toggle button ─── */
 .floating-contact-widget__row {

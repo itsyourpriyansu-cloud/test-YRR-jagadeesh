@@ -13,8 +13,11 @@
   var contactLinks = {
     phone: '+919290673542',
     whatsapp: '919290673542',
-    facebook: 'https://facebook.com/your-page',
-    instagram: 'https://instagram.com/your-profile'
+    facebook: 'https://www.facebook.com/yoshithajagadishdonkana/',
+    twitter: 'https://x.com/jagadishdonkana',
+    instagram: 'https://www.instagram.com/yoshithajagadishdonkana/',
+    linkedin: 'https://www.linkedin.com/company/yoshithajagadishdonkana/',
+    youtube: 'https://www.youtube.com/@yoshithajagadishdonkana/'
   };
   // ─────────────────────────────────────────────────────────────
 
@@ -33,12 +36,18 @@
     var phoneLink = document.getElementById('fcw-link-phone');
     var whatsappLink = document.getElementById('fcw-link-whatsapp');
     var facebookLink = document.getElementById('fcw-link-facebook');
+    var twitterLink = document.getElementById('fcw-link-twitter');
     var instagramLink = document.getElementById('fcw-link-instagram');
+    var linkedinLink = document.getElementById('fcw-link-linkedin');
+    var youtubeLink = document.getElementById('fcw-link-youtube');
 
     if (phoneLink) phoneLink.href = 'tel:' + contactLinks.phone;
     if (whatsappLink) whatsappLink.href = 'https://wa.me/' + contactLinks.whatsapp;
     if (facebookLink) facebookLink.href = contactLinks.facebook;
+    if (twitterLink) twitterLink.href = contactLinks.twitter;
     if (instagramLink) instagramLink.href = contactLinks.instagram;
+    if (linkedinLink) linkedinLink.href = contactLinks.linkedin;
+    if (youtubeLink) youtubeLink.href = contactLinks.youtube;
 
     var isOpen = false;
     var focusableEls = [hideBtn].concat(links);
@@ -141,15 +150,38 @@
       var bubble = findBubble();
       if (!bubble) {
         widget.style.removeProperty('--fcw-bottom');
+        widget.style.removeProperty('--fcw-right');
         return;
       }
       var rect = bubble.getBoundingClientRect();
       if (!rect.width || !rect.height || rect.width > MAX_BUBBLE_SIZE || rect.height > MAX_BUBBLE_SIZE) {
         widget.style.removeProperty('--fcw-bottom');
+        widget.style.removeProperty('--fcw-right');
         return;
       }
-      var offset = Math.round((window.innerHeight - rect.top) + GAP);
+
+      var isDesktop = window.innerWidth > 768;
+      
+      // Calculate vertical offset (bottom)
+      // The CollectChat iframe usually has transparent padding at the top. On desktop,
+      // we adjust the visual offset to pull the toggle closer to the chatbot circle
+      // for a perfectly balanced visual gap (~12px to 16px between the circles).
+      var verticalGap = GAP;
+      if (isDesktop) {
+        verticalGap = -8; 
+      }
+      
+      var offset = Math.round((window.innerHeight - rect.top) + verticalGap);
       widget.style.setProperty('--fcw-bottom', offset + 'px');
+
+      // Calculate horizontal alignment (right) to center the widget over the chatbot on desktop
+      if (isDesktop) {
+        var widgetToggleWidth = 60; // floating-contact-widget__toggle width is 60px
+        var rightOffset = Math.round((window.innerWidth - rect.right) + (rect.width - widgetToggleWidth) / 2);
+        widget.style.setProperty('--fcw-right', rightOffset + 'px');
+      } else {
+        widget.style.removeProperty('--fcw-right');
+      }
     }
 
     update();
