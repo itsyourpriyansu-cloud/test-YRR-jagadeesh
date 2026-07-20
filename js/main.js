@@ -826,17 +826,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const desc = document.querySelector('.stats-new-desc');
     if (!desc) return;
 
-    const originalText = desc.textContent.replace(/\s+/g, ' ').trim();
-    desc.innerHTML = '';
-    
-    // Create spans for each character to enable smooth character-by-character transition
-    const spans = [...originalText].map(char => {
-      const span = document.createElement('span');
-      span.className = 'reveal-char';
-      span.textContent = char;
-      desc.appendChild(span);
-      return span;
-    });
+    const revealSpans = desc.querySelectorAll('.reveal-span');
+    let spans = [];
+
+    if (revealSpans.length > 0) {
+      revealSpans.forEach(rSpan => {
+        const text = rSpan.textContent;
+        rSpan.innerHTML = '';
+        const chars = [...text].map(char => {
+          const span = document.createElement('span');
+          span.className = 'reveal-char';
+          span.textContent = char;
+          rSpan.appendChild(span);
+          return span;
+        });
+        spans = spans.concat(chars);
+      });
+    } else {
+      const originalText = desc.textContent.replace(/\s+/g, ' ').trim();
+      desc.innerHTML = '';
+      
+      // Create spans for each character to enable smooth character-by-character transition
+      spans = [...originalText].map(char => {
+        const span = document.createElement('span');
+        span.className = 'reveal-char';
+        span.textContent = char;
+        desc.appendChild(span);
+        return span;
+      });
+    }
 
     const handler = () => {
       const rect = desc.getBoundingClientRect();
